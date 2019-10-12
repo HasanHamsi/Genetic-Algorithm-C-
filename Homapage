@@ -1,0 +1,201 @@
+# Genetic-Algorithm-C-
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Genetik_Algortma_İle_MHD_Uygulaması
+{
+    public partial class Entrance : Form
+    {
+
+    
+
+
+        public Entrance()
+        {
+            InitializeComponent();
+        }
+
+
+       
+       
+       public void buttonminstation_Click(object sender, EventArgs e)
+        {
+        
+
+           
+            
+
+            
+
+            int maxiteration = Convert.ToInt32(textmaxiteration.Text);
+            double crosspossibility = Convert.ToDouble(textcrosspossibility.Text);
+            double mutationpossibility = Convert.ToDouble(textmutpossibility.Text);
+            int tournamamentsize = Convert.ToInt32(texttournamamentsize.Text);
+            int populationsize = Convert.ToInt32(textpopsize.Text);
+            int chromosomesize = Convert.ToInt32(textchromosonesize.Text);
+            int numberofduty = Convert.ToInt32(textduty.Text);
+            Genetic_Algorithm ga = new Genetic_Algorithm();
+            
+          double fitness = ga.result(maxiteration, crosspossibility,this, mutationpossibility, tournamamentsize, populationsize, chromosomesize,numberofduty);
+          
+            
+
+
+
+        }
+
+      
+        private void button1_Click(object sender, EventArgs e)
+        { 
+            //DutyOfTime dt = new DutyOfTime();
+            //dt.Show();
+            //int i=0;
+            //for ( i = 0; i <= Convert.ToInt32(textduty.Text)/2; i++)
+            //{
+            //    TextBox textcreate = new TextBox();
+            //    Label labelcreate = new Label();
+            //    labelcreate.Top = 50;
+            //    labelcreate.Left = 70;
+            //    labelcreate.Width = 100;
+            //    labelcreate.Text = "Duty"+" " + (i + 1) +" "+ "Time:";
+            //    labelcreate.Font = new Font("TimesNewRoman", 11, FontStyle.Regular);
+            //    dt.Controls.Add(labelcreate);
+            //    labelcreate.Location = new Point(30, 110+30 * i);
+            //    textcreate.Top = 50;
+            //    textcreate.Left = 70;
+            //    textcreate.Width = 50;
+            //    textcreate.Text = " ";
+            //    dt.Controls.Add(textcreate);
+            //    textcreate.Location = new Point( 130,110+ 30 * i);
+               
+            //}
+            //for (int j = 0; j < Convert.ToInt32(textduty.Text) /2 ; j++)
+            //{
+            //    TextBox textcreate2 = new TextBox();
+            //    Label labelcreate2 = new Label();
+                
+            //    labelcreate2.Top = 50;
+            //    labelcreate2.Left = 70;
+            //    labelcreate2.Width = 100;
+            //    labelcreate2.Text = "Duty" + " " + (i+j + 1) + " " + "Time:";
+            //    labelcreate2.Font = new Font("TimesNewRoman", 11, FontStyle.Regular);
+            //    dt.Controls.Add(labelcreate2);
+
+            //    labelcreate2.Location = new Point(300, 110+30 * j);
+            //     textcreate2.Top = 50;
+            //    textcreate2.Left = 70;
+            //    textcreate2.Width = 50;
+            //    textcreate2.Text = " ";
+            //    dt.Controls.Add(textcreate2);
+            //    textcreate2.Location = new Point(400, 110+30 * j);
+                
+            //}
+
+          
+          
+           
+
+        }
+
+       
+        public void buttonmatrix_Click(object sender, EventArgs e)
+        {
+            //Matrix mx = new Matrix();
+            
+            //mx.Show();
+            
+            //for (int i = 0; i < Convert.ToInt32(textduty.Text) ; i++)
+            //{
+            //    Label labelcreate3 = new Label();
+            //    labelcreate3.Top = 50;
+            //    labelcreate3.Left = 50;
+            //    labelcreate3.Width = 90;
+            //    labelcreate3.Text = "Duty" + " " + (i + 1) + " " + ":";
+            //    labelcreate3.Font = new Font("TimesNewRoman", 11, FontStyle.Regular);
+            //    mx.panel1.Controls.Add(labelcreate3);
+            //    labelcreate3.Location = new Point(15, 115+50 * i);
+
+            // }
+
+
+            // for (int j = 0; j < Convert.ToInt32(textduty.Text); j++)
+            //{
+            //    Label labelcreate4 = new Label();
+            //    labelcreate4.Top = 20;
+            //    labelcreate4.Left = 20;
+            //    labelcreate4.Width = 20;
+            //    labelcreate4.Text = (j + 1).ToString();
+            //    labelcreate4.Font = new Font("TimesNewRoman", 8, FontStyle.Regular);
+            //    mx.panel1.Controls.Add(labelcreate4);
+            //    labelcreate4.Location = new Point(50*j+110,50);
+            //}
+
+
+            
+
+         
+            //TextBox[,]  textmatrixcreate = new TextBox[Convert.ToInt32(textduty.Text), Convert.ToInt32(textduty.Text)];
+            //int left = 20;
+            //int top = 20;
+            
+
+          //move = new double[Convert.ToInt32(textduty.Text), Convert.ToInt32(textduty.Text)];
+
+             
+          //  for (int i = 0; i < Convert.ToInt32(textduty.Text); i++)
+          //  {
+                
+               
+          //      for (int j=0; j < Convert.ToInt32(textduty.Text); j++)
+          //      {
+                  
+          //          textmatrixcreate[i, j] = new TextBox();
+          //          textmatrixcreate[i, j].Left = left;
+          //          textmatrixcreate[i, j].Top = top;
+          //          textmatrixcreate[i, j].Width = 20;
+          //          textmatrixcreate[i, j].Text = 0.ToString();
+
+                  
+          //          mx.panel1.Controls.Add(textmatrixcreate[i, j]);
+          //          textmatrixcreate[i,j].Location = new Point(50 * i + 110, 50*j+110);
+
+
+
+                    //   move[i,j] =Convert.ToDouble(textmatrixcreate[i,j].Text);
+                   
+                   
+            //    }
+                   
+                
+                
+                
+            //}
+                    //textmatrixcreate[0, 0].Text = 0.ToString();
+                    //textmatrixcreate[0, 1].Text = 1.ToString();
+                    //textmatrixcreate[1, 0].Text = 0.ToString();
+                    //textmatrixcreate[1, 1].Text = 0.ToString();
+                    //textmatrixcreate[0, 2].Text = 2.ToString();
+                    //move[0, 0] = Convert.ToDouble(textmatrixcreate[0, 0].Text);
+                    //move[0, 1] = Convert.ToDouble(textmatrixcreate[0, 1].Text);
+                    //move[1, 0] = Convert.ToDouble(textmatrixcreate[1, 0].Text);
+                    //move[1, 1] = Convert.ToDouble(textmatrixcreate[1, 1].Text);
+                    //move[0, 2] = Convert.ToDouble(textmatrixcreate[0, 2].Text);
+
+
+
+
+
+
+        }
+
+
+    }
+}
