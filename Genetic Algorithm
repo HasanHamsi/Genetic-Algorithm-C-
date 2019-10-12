@@ -1,0 +1,2793 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Genetik_Algortma_İle_MHD_Uygulaması
+{
+    class Genetic_Algorithm
+    {
+
+        
+        Chromosome [] chr_some;
+        double bestfitness;
+        double sum = 0;
+        double fit1 = 0;
+        double fit2 = 0;
+        double fit3 = 0;
+        double fit4 = 0;
+        double fit5 = 0;
+        double fit6 = 0;
+        double fit7 = 0;
+        double fit8 = 0;
+        double fit9 = 0;
+        double fit10 = 0;
+        double fit11 = 0;
+        double fit12 = 0;
+        int rand;
+        List<int> myvalues1 = new List<int>();
+        List<int> myvalues2 = new List<int>();
+        List<int> myvalues3 = new List<int>();
+        List<int> myvalues4 = new List<int>();
+        List<int> myvaluesmut1 = new List<int>();
+       int [] hide1 = new int[4];
+        double [] mutation1 = new double[4];
+        
+
+
+        public double result(int maxiteration, double crosspossibility,Entrance homapage, double mutationpossibility, int tournamamentsize, int populationsize, int chromosomesize,int numberofduty)
+        {
+            creatinganinitialpopulation(populationsize, chromosomesize,numberofduty);
+            for (int i = 0; i < maxiteration; i++)
+            {
+                calculatefitnessvalue(populationsize,chromosomesize,homapage) ;
+                //Elitizm(After find every fitnis value we need hide the best value )
+                selection(populationsize, chromosomesize, homapage,tournamamentsize);
+                crossover(populationsize,chromosomesize,homapage,crosspossibility);
+                mutation(populationsize, chromosomesize, homapage, mutationpossibility);
+        }
+            return bestfitness;
+        }
+
+        public void mutation(int populationsize, int chromosomesize,Entrance homapage,double mutationpossibility)
+        {
+            Presedince();
+            Random rndmutation = new Random();
+            int point1 = 2;
+            int point2 = 8;
+            int[] mut1 = new int[chromosomesize];
+            int[] mut2 = new int[chromosomesize];
+            int[] mut3 = new int[chromosomesize];
+            int[] mut4 = new int[chromosomesize];
+
+           ////mut1
+                double rastmutation = rndmutation.NextDouble();
+                 myvaluesmut1.Clear();
+            if (rastmutation<mutationpossibility)
+                {   
+                    for (int j = 0; j < point1; j++)
+                    {
+                        mut1[j] = child1[j];
+                        matrixmut[child1[j], 0] = 50; 
+                       
+                    
+
+                    }
+
+
+                for (int k = point2; k < chromosomesize; k++)
+                {
+                    mut1[k] = child1[k];
+                    matrixmut[child1[k], 0] = 50;
+
+                }
+
+
+                for (int l = 0; l < chromosomesize; l++)
+                {
+
+
+                    for (int k = 0; k < matrixmut.GetLength(0); k++)
+                    {
+                        for (int m = 0; m < matrixmut.GetLength(1); m++)
+                        {
+                            if (matrixmut[k, m] == mut1[l] + 1)
+                            {
+                                matrixmut[k, m] = 0;
+                            }
+                        }
+                    }
+                }
+
+                
+                    myvaluesmut1.Clear();
+
+                    for (int i = 0; i <chromosomesize; i++)
+                    {
+                        if (matrixmut[i, 0] == 0 && matrixmut[i, 1] == 0 && matrixmut[i, 2] == 0 && matrixmut[i, 3] == 0 && matrixmut[i, 4] == 0 && matrixmut[i, 5] == 0 && matrixmut[i, 6] == 0 && matrixmut[i, 7] == 0 && matrixmut[i, 8] == 0 && matrixmut[i, 9] == 0)
+                        {
+                            myvaluesmut1.Add(i);
+
+                        }
+
+                    }
+
+                
+                    for (int d = point1;d < point2; d++)
+                    {
+                    Presedince();
+                    for (int l = 0; l < chromosomesize; l++)
+                    {
+                        myvaluesmut1.Clear();
+
+                        for (int i = 0; i <chromosomesize; i++)
+                        {
+                            if (matrixx[i, 0] == 0 && matrixx[i, 1] == 0 && matrixx[i, 2] == 0 && matrixx[i, 3] == 0 && matrixx[i, 4] == 0 && matrixx[i, 5] == 0 && matrixx[i, 6] == 0 && matrixx[i, 7] == 0 && matrixx[i, 8] == 0 && matrixx[i, 9] == 0)
+                            {
+                                myvaluesmut1.Add(i);
+
+                            }
+
+                        }
+
+                            Random rand = new Random();
+                            int rastgele = rand.Next(0, myvaluesmut1.Count);
+                        mut1[l] = myvaluesmut1[rastgele];
+                        for (int j = 0; j < dutytime.Length; j++)
+                        {
+                           
+
+                           
+
+                            matrixx[mut1[l], 0] = 50;
+
+
+                            for (int k = 0; k <matrixx.GetLength(0); k++)
+                            {
+                                for (int m = 0; m < matrixx.GetLength(1); m++)
+                                {
+                                    if (matrixx[k, m] == mut1[l] + 1)
+                                    {
+                                        matrixx[k, m] = 0;
+                                    }
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+
+
+                }
+
+            else
+            {
+                for (int i = 0; i < chromosomesize; i++)
+                {
+                    mut1[i] = child1[i];
+                }
+            }
+
+            ////mut2
+               myvaluesmut1.Clear();
+            double rastmutation2 = rndmutation.NextDouble();
+            
+            if (rastmutation2 < mutationpossibility)
+            {
+                for (int j = 0; j < point1; j++)
+                {
+                    mut2[j] = child1a[j];
+                    matrixmut[child1a[j], 0] = 50;
+
+
+
+                }
+
+
+                for (int k = point2; k < chromosomesize; k++)
+                {
+                    mut2[k] = child1a[k];
+                    matrixmut[child1a[k], 0] = 50;
+
+                }
+
+
+                for (int l = 0; l < chromosomesize; l++)
+                {
+
+
+                    for (int k = 0; k < matrixmut.GetLength(0); k++)
+                    {
+                        for (int m = 0; m < matrixmut.GetLength(1); m++)
+                        {
+                            if (matrixmut[k, m] == mut2[l] + 1)
+                            {
+                                matrixmut[k, m] = 0;
+                            }
+                        }
+                    }
+                }
+
+
+                myvaluesmut1.Clear();
+
+                for (int i = 0; i < matrixx.GetLength(0); i++)
+                {
+                    if (matrixmut[i, 0] == 0 && matrixmut[i, 1] == 0 && matrixmut[i, 2] == 0 && matrixmut[i, 3] == 0 && matrixmut[i, 4] == 0 && matrixmut[i, 5] == 0 && matrixmut[i, 6] == 0 && matrixmut[i, 7] == 0 && matrixmut[i, 8] == 0 && matrixmut[i, 9] == 0)
+                    {
+                        myvaluesmut1.Add(i);
+
+                    }
+
+                }
+
+
+                for (int d = point1; d < point2; d++)
+                {
+                    Presedince();
+                    for (int l = 0; l < chromosomesize; l++)
+                    {
+                        myvaluesmut1.Clear();
+
+                        for (int i = 0; i < matrixx.GetLength(0); i++)
+                        {
+                            if (matrixx[i, 0] == 0 && matrixx[i, 1] == 0 && matrixx[i, 2] == 0 && matrixx[i, 3] == 0 && matrixx[i, 4] == 0 && matrixx[i, 5] == 0 && matrixx[i, 6] == 0 && matrixx[i, 7] == 0 && matrixx[i, 8] == 0 && matrixx[i, 9] == 0)
+                            {
+                                myvaluesmut1.Add(i);
+
+                            }
+
+                        }
+
+                            Random rand = new Random();
+                            int rastgele = rand.Next(0, myvaluesmut1.Count);
+
+                            mut2[l] = myvaluesmut1[rastgele];
+
+
+                        for (int j = 0; j < dutytime.Length; j++)
+                        {
+                           
+                            matrixx[mut2[l], 0] = 50;
+
+
+                            for (int k = 0; k < matrixx.GetLength(0); k++)
+                            {
+                                for (int m = 0; m < matrixx.GetLength(1); m++)
+                                {
+                                    if (matrixx[k, m] == mut2[l] + 1)
+                                    {
+                                        matrixx[k, m] = 0;
+                                    }
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+
+
+            }
+
+            else
+            {
+                for (int i = 0; i < chromosomesize; i++)
+                {
+                    mut2[i] = child1a[i];
+                }
+            }
+
+            ////mut3
+
+            myvaluesmut1.Clear();
+            double rastmutation3 = rndmutation.NextDouble();
+
+            if (rastmutation3 < mutationpossibility)
+            {
+                for (int j = 0; j < point1; j++)
+                {
+                    mut3[j] = child2[j];
+                    matrixmut[child2[j], 0] = 50;
+
+
+
+                }
+
+
+                for (int k = point2; k < chromosomesize; k++)
+                {
+                    mut3[k] = child2[k];
+                    matrixmut[child2[k], 0] = 50;
+
+                }
+
+
+                for (int l = 0; l < chromosomesize; l++)
+                {
+
+
+                    for (int k = 0; k < matrixmut.GetLength(0); k++)
+                    {
+                        for (int m = 0; m < matrixmut.GetLength(1); m++)
+                        {
+                            if (matrixmut[k, m] == mut3[l] + 1)
+                            {
+                                matrixmut[k, m] = 0;
+                            }
+                        }
+                    }
+                }
+
+
+                myvaluesmut1.Clear();
+
+                for (int i = 0; i < chromosomesize; i++)
+                {
+                    if (matrixmut[i, 0] == 0 && matrixmut[i, 1] == 0 && matrixmut[i, 2] == 0 && matrixmut[i, 3] == 0 && matrixmut[i, 4] == 0 && matrixmut[i, 5] == 0 && matrixmut[i, 6] == 0 && matrixmut[i, 7] == 0 && matrixmut[i, 8] == 0 && matrixmut[i, 9] == 0)
+                    {
+                        myvaluesmut1.Add(i);
+
+                    }
+
+                }
+
+
+                for (int d = point1; d < point2; d++)
+                {
+                    Presedince();
+                    for (int l = 0; l < chromosomesize; l++)
+                    {
+                        myvaluesmut1.Clear();
+
+                        for (int i = 0; i < matrixx.GetLength(0); i++)
+                        {
+                            if (matrixx[i, 0] == 0 && matrixx[i, 1] == 0 && matrixx[i, 2] == 0 && matrixx[i, 3] == 0 && matrixx[i, 4] == 0 && matrixx[i, 5] == 0 && matrixx[i, 6] == 0 && matrixx[i, 7] == 0 && matrixx[i, 8] == 0 && matrixx[i, 9] == 0)
+                            {
+                                myvaluesmut1.Add(i);
+
+                            }
+
+                        }
+
+                            Random rand = new Random();
+                            int rastgele = rand.Next(0, myvaluesmut1.Count);
+
+                            mut3[l] = myvaluesmut1[rastgele];
+
+
+                        for (int j = 0; j < dutytime.Length; j++)
+                        {
+                            
+                            matrixx[mut3[l], 0] = 50;
+
+
+                            for (int k = 0; k < matrixx.GetLength(0); k++)
+                            {
+                                for (int m = 0; m < matrixx.GetLength(1); m++)
+                                {
+                                    if (matrixx[k, m] == mut3[l] + 1)
+                                    {
+                                        matrixx[k, m] = 0;
+                                    }
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+
+
+            }
+
+            else
+            {
+                for (int i = 0; i < chromosomesize; i++)
+                {
+                    mut3[i] = child2[i];
+                }
+            }
+
+
+            // mut4
+
+
+            myvaluesmut1.Clear();
+            double rastmutation4 = rndmutation.NextDouble();
+
+            if (rastmutation4 < mutationpossibility)
+            {
+                for (int j = 0; j < point1; j++)
+                {
+                    mut4[j] = child2a[j];
+                    matrixmut[child2a[j], 0] =50;
+
+
+
+                }
+
+
+                for (int k = point2; k < chromosomesize; k++)
+                {
+                    mut4[k] = child2a[k];
+                    matrixmut[child2a[k], 0] = 50;
+
+                }
+
+
+                for (int l = 0; l < chromosomesize; l++)
+                {
+
+
+                    for (int k = 0; k < matrixmut.GetLength(0); k++)
+                    {
+                        for (int m = 0; m < matrixmut.GetLength(1); m++)
+                        {
+                            if (matrixmut[k, m] == mut4[l] + 1)
+                            {
+                                matrixmut[k, m] = 0;
+                            }
+                        }
+                    }
+                }
+
+
+                myvaluesmut1.Clear();
+
+                for (int i = 0; i < chromosomesize; i++)
+                {
+                    if (matrixmut[i, 0] == 0 && matrixmut[i, 1] == 0 && matrixmut[i, 2] == 0 && matrixmut[i, 3] == 0 && matrixmut[i, 4] == 0 && matrixmut[i, 5] == 0 && matrixmut[i, 6] == 0 && matrixmut[i, 7] == 0 && matrixmut[i, 8] == 0 && matrixmut[i, 9] == 0)
+                    {
+                        myvaluesmut1.Add(i);
+
+                    }
+
+                }
+
+
+                for (int d = point1; d < point2; d++)
+                {
+                    Presedince();
+                    for (int l = 0; l < chromosomesize; l++)
+                    {
+                        myvaluesmut1.Clear();
+
+                        for (int i = 0; i < matrix1.GetLength(0); i++)
+                        {
+                            if (matrixx[i, 0] == 0 && matrixx[i, 1] == 0 && matrixx[i, 2] == 0 && matrixx[i, 3] == 0 && matrixx[i, 4] == 0 && matrixx[i, 5] == 0 && matrixx[i, 6] == 0 && matrixx[i, 7] == 0 && matrixx[i, 8] == 0 && matrixx[i, 9] == 0)
+                            {
+                                myvaluesmut1.Add(i);
+
+                            }
+
+                        }
+
+                            Random rand = new Random();
+                            int rastgele = rand.Next(0, myvaluesmut1.Count);
+
+                            mut4[l] = myvaluesmut1[rastgele];
+
+
+                        for (int j = 0; j < dutytime.Length; j++)
+                        {
+                            
+                            matrixx[mut4[l], 0] = 50;
+
+
+                            for (int k = 0; k < dutytime.Length; k++)
+                            {
+                                for (int m = 0; m < matrix2.GetLength(1); m++)
+                                {
+                                    if (matrixx[k, m] == mut4[l] + 1)
+                                    {
+                                        matrixx[k, m] = 0;
+                                    }
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+
+
+            }
+
+            else
+            {
+                for (int i = 0; i < chromosomesize; i++)
+                {
+                    mut4[i] = child2a[i];
+                }
+            }
+
+
+
+            for (int i = 0; i < chromosomesize; i++)
+            {
+                
+                    chr_some[0].Chrsome[i] = mut1[i];
+                    chr_some[1].Chrsome[i] = mut2[i];
+                    chr_some[2].Chrsome[i] = mut3[i];
+                    chr_some[3].Chrsome[i] = mut4[i];
+               
+               
+            }
+
+
+
+
+
+
+
+
+        }
+
+
+
+        int[] child1 = new int[29];
+        int[] child2 = new int[29];
+        int[] child1a = new int[29];
+        int[] child2a = new int[29];
+
+        public void crossover(int populationsize, int chromosomesize, Entrance homapage, double crosspossibility)
+        {
+            int[] hide2 = new int[populationsize]; //  hide chrosome for crossover
+          
+            //  hide chrosome for crossover
+            
+            Random rnd2 = new Random();
+       
+            
+            Presedince();
+            for (int i = 0; i < populationsize/populationsize; i++)
+            {  
+               
+                    hide2[0] = hide1[0];
+                    hide2[1] = hide1[1];
+               
+
+                
+                
+                
+            }
+            for (int i = 0; i < populationsize/populationsize; i++)
+            {
+                
+                hide2[2] = hide1[2];
+                hide2[3] = hide1[3];
+               
+
+            }
+
+            
+            
+            int rand3 = rnd2.Next(1, chromosomesize);
+           
+            for (int j = 0; j < rand; j++)
+            {
+                child1[j] = chr_some[hide2[0]].Chrsome[j];
+                child1a[j] = chr_some[hide2[1]].Chrsome[j];
+                child2[j] = chr_some[hide2[2]].Chrsome[j];
+                child2a[j] = chr_some[hide2[3]].Chrsome[j];
+
+                matrixx[child1[j], 0] = 50;
+                matrix1[child1a[j], 0] = 50;
+                matrix2[child2[j], 0] = 50;
+                matrix3[child2a[j], 0] = 50;
+            }
+
+            /////CHİLD1
+
+            ///////////////////////////////////////////////////
+
+            double rand2 = rnd2.NextDouble();
+            if (rand2 < crosspossibility)
+            {
+
+           
+
+            for (int l = 0; l < chromosomesize; l++)
+            {
+
+
+                for (int k = 0; k < matrixx.GetLength(0); k++)
+                {
+                    for (int m = 0; m < matrixx.GetLength(1); m++)
+                    {
+                        if (matrixx[k, m] == child1[l] + 1)
+                        {
+                            matrixx[k, m] = 0;
+                        }
+                    }
+                }
+            }
+
+
+            
+
+
+
+
+
+
+            for (int k = rand3; k < chromosomesize; k++)
+            {
+                myvalues1.Clear();
+                for (int i = 0; i < chromosomesize; i++)
+                {
+
+
+                    if (matrixx[i, 0] == 0 && matrixx[i, 1] == 0 && matrixx[i, 2] == 0 && matrixx[i, 3] == 0 && matrixx[i, 4] == 0 && matrixx[i, 5] == 0 && matrixx[i, 6] == 0 && matrixx[i, 7] == 0 && matrixx[i, 8] == 0 && matrixx[i, 9] == 0)
+                    {
+                        myvalues1.Add(i);
+                    }
+
+                }
+                    int rastgele = rnd2.Next(0, myvalues1.Count);
+
+                  child1[k-1] = myvalues1[rastgele];
+                    
+                    matrixx[child1[k], 0] = 50;
+                
+
+                for (int t = 0; t < chromosomesize; t++)
+                {
+                    for (int b = 0; b < matrixx.GetLength(0); b++)
+                    {
+                        for (int m = 0; m < matrixx.GetLength(1); m++)
+                        {
+                            if (matrixx[b, m] == child1[t] + 1)
+                            {
+                                matrixx[b, m] = 0;
+                            }
+                        }
+                    }
+                }
+
+                    
+                
+
+            }
+       
+
+            /////CHİLD1a
+
+            ///////////////////////////////////////////////////
+       
+            for (int l = 0; l < chromosomesize; l++)
+            {
+
+
+                for (int k = 0; k < matrix1.GetLength(0); k++)
+                {
+                    for (int m = 0; m < matrix1.GetLength(1); m++)
+                    {
+                        if (matrix1[k, m] == child1a[l] + 1)
+                        {
+                            matrix1[k, m] = 0;
+                        }
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
+
+            for (int k = rand3; k < chromosomesize; k++)
+            {
+                myvalues2.Clear();
+                for (int i = 0; i < chromosomesize; i++)
+                {
+
+
+                    if (matrix1[i, 0] == 0 && matrix1[i, 1] == 0 && matrix1[i, 2] == 0 && matrix1[i, 3] == 0 && matrix1[i, 4] == 0 && matrix1[i, 5 ]== 0 && matrix1[i, 6] == 0 && matrix1[i, 7] == 0 && matrix1[i, 8] == 0 && matrix1[i, 9] == 0)
+                    {
+                        myvalues2.Add(i);
+                    }
+
+                }
+                int rastgele = rnd2.Next(0, myvalues2.Count);
+
+                child1a[k-1] = myvalues2[rastgele];
+
+                matrix1[child1a[k], 0] = 50;
+
+
+                for (int t = 0; t < chromosomesize; t++)
+                {
+                    for (int b = 0; b < matrixx.GetLength(0); b++)
+                    {
+                        for (int m = 0; m < matrixx.GetLength(1); m++)
+                        {
+                            if (matrix1[b, m] == child1a[t] + 1)
+                            {
+                                matrix1[b, m] = 0;
+                            }
+                        }
+                    }
+                }
+
+
+
+
+            }
+         } //if parantezi
+
+
+
+            else
+            {
+                for (int i = 0; i < chromosomesize; i++)
+                {
+                    child1[i] = chr_some[hide2[0]].Chrsome[0];
+                    child1a[i] = chr_some[hide2[1]].Chrsome[1];
+                }
+            }
+
+            /////CHİLD2
+
+            ///////////////////////////////////////////////////
+
+            double rand5 = rnd2.NextDouble();
+            if (rand5 < crosspossibility)
+            {
+
+
+            
+
+
+            for (int l = 0; l < chromosomesize; l++)
+            {
+
+
+                for (int k = 0; k < matrix2.GetLength(0); k++)
+                {
+                    for (int m = 0; m < matrix2.GetLength(1); m++)
+                    {
+                        if (matrix2[k, m] == child2[l] + 1)
+                        {
+                            matrix2[k, m] = 0;
+                        }
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
+
+            for (int k = rand3; k < chromosomesize; k++)
+            {
+                myvalues3.Clear();
+                for (int i = 0; i < chromosomesize; i++)
+                {
+
+
+                    if (matrix2[i, 0] == 0 && matrix2[i, 1] == 0 && matrix2[i, 2] == 0 && matrix2[i, 3]==0 && matrix2[i, 4] == 0 && matrix2[i, 5] == 0 && matrix2[i, 6] == 0 && matrix2[i, 7] == 0 && matrix2[i, 8] == 0 && matrix2[i, 9] == 0)
+                    {
+                        myvalues3.Add(i);
+                    }
+
+                }
+                int rastgele = rnd2.Next(0, myvalues3.Count);
+
+                child2[k-1] = myvalues3[rastgele];
+
+                matrix2[child2[k], 0] = 50;
+
+
+                for (int t = 0; t < chromosomesize; t++)
+                {
+                    for (int b = 0; b < matrix2.GetLength(0); b++)
+                    {
+                        for (int m = 0; m < matrix2.GetLength(1); m++)
+                        {
+                            if (matrix2[b, m] == child2[t] + 1)
+                            {
+                                matrix2[b, m] = 0;
+                            }
+                        }
+                    }
+                }
+
+
+
+
+            }
+
+            /////CHİLD2a
+
+            ///////////////////////////////////////////////////
+           
+            for (int l = 0; l < chromosomesize; l++)
+            {
+
+
+                for (int k = 0; k < matrix3.GetLength(0); k++)
+                {
+                    for (int m = 0; m < matrix3.GetLength(1); m++)
+                    {
+                        if (matrix3[k, m] == child2a[l] + 1)
+                        {
+                            matrix3[k, m] = 0;
+                        }
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
+
+            for (int k = rand3; k < chromosomesize; k++)
+            {
+                myvalues4.Clear();
+                for (int i = 0; i < chromosomesize; i++)
+                {
+
+
+                    if (matrix3[i, 0] == 0 && matrix3[i, 1] == 0 && matrix3[i, 2] == 0 && matrix3[i, 3] == 0 && matrix3[i, 4] == 0 && matrix3[i, 5] == 0 && matrix3[i, 6] == 0 && matrix3[i, 7] == 0 && matrix3[i,8] == 0 && matrix3[i, 9] == 0)
+                    {
+                        myvalues4.Add(i);
+                    }
+
+                }
+                int rastgele = rnd2.Next(0, myvalues4.Count);
+
+                child2a[k-1] = myvalues4[rastgele];
+
+                matrix3[child2a[k], 0] = 50;
+
+
+                for (int t = 0; t < chromosomesize; t++)
+                {
+                    for (int b = 0; b < matrix3.GetLength(0); b++)
+                    {
+                        for (int m = 0; m < matrix3.GetLength(1); m++)
+                        {
+                            if (matrix3[b, m] == child2a[t] + 1)
+                            {
+                                matrix3[b, m] = 0;
+                            }
+                        }
+                    }
+                }
+
+
+
+
+            }
+
+            }
+
+
+            else
+            {
+                for (int i = 0; i < chromosomesize; i++)
+                {
+                    child2[i] = chr_some[hide2[2]].Chrsome[3];
+                    child2a[i] = chr_some[hide2[3]].Chrsome[4];
+                }
+            }
+
+        }
+
+        public void selection(int populationsize, int chromosomesize,Entrance homapage, int tournamamentsize)
+        {
+            Random rnd = new Random();
+          
+       double [] sec = new double[tournamamentsize];
+          double []  enk = new double[populationsize];
+
+         
+
+            for (int j = 0; j < populationsize; j++)
+            {
+                
+
+                for (int i = 0; i < tournamamentsize; i++)
+                {
+                    hide1[j] = rand;
+                    rand = rnd.Next(0, populationsize);
+
+                    sec[i] = Convert.ToDouble(chr_some[rand].alltototalfitness);
+                    enk[j] = sec[0];
+                    
+                    if (sec[i] < enk[j])
+                    {
+                        hide1[j] = rand;
+
+                        enk[j] = sec[i];
+                       
+                        
+                    }
+                   
+                      
+
+                    homapage.listelection.Items.Add(sec[i]+"-"+rand);
+
+
+                     }
+               
+
+             
+                
+                homapage.listelection.Items.Add("-------");
+
+                homapage.listelection1.Items.Add(enk[j]+"Seçilen Kromozom:"+hide1[j]) ;
+                
+                homapage.listelection1.Items.Add("----");
+
+
+
+
+
+            }
+           
+
+
+        }
+
+        public void calculatefitnessvalue(int populationsize, int chromosomesize,Entrance homapage)
+        {
+             double[] totalfitnes = new double[12];
+              Presedince();
+            for (int i = 0; i < populationsize; i++)
+            {
+                for (int j = 0; j <chromosomesize; j++)
+                {
+                    hide[j] =chr_some[i].dutytime[j];
+                    sum = sum + hide[j];
+                    if (sum<cycletime)
+                    {
+                        
+                        homapage.listBox1.Items.Add(chr_some[i].Chrsome[j] + 1 + "- " + ".iş" + "---"+" Time="+" "+dutytime[chr_some[i].Chrsome[j]]);
+                        fit1 = fit1 + dutytime[chr_some[i].Chrsome[j]];
+                        
+                    } 
+
+                   else if (sum>cycletime-(cycletime-fit1)&&sum<2*cycletime-(cycletime-fit1))
+                    {   
+                        homapage.listBox2.Items.Add(chr_some[i].Chrsome[j] + 1 + "- " +".iş"+ "---" + " Time=" + " " + dutytime[chr_some[i].Chrsome[j]]);
+                        fit2 = fit2 + dutytime[chr_some[i].Chrsome[j]];
+
+
+                    }
+                    else if (sum>2*cycletime-(cycletime-fit2)&&sum<3*cycletime-(cycletime-fit2))
+                    {
+                        homapage.listBox3.Items.Add(chr_some[i].Chrsome[j]+1 + "- " + ".iş" + "---" + " Time=" + " " + dutytime[chr_some[i].Chrsome[j]]);
+
+                        fit3 = fit3 + dutytime[chr_some[i].Chrsome[j]];
+
+
+                    }
+                  else  if (sum > 3 * cycletime - (cycletime - fit3) && sum < 4 * cycletime - (cycletime - fit3))
+                    {
+                       
+                        homapage.listBox12.Items.Add(chr_some[i].Chrsome[j] + 1 + "- " + ".iş" + "---" + " Time=" + " " + dutytime[chr_some[i].Chrsome[j]]);
+
+                        fit4 = fit4 + dutytime[chr_some[i].Chrsome[j]];
+                        
+
+                    }
+
+                   else if (sum > 4 * cycletime - (cycletime - fit4) && sum <5* cycletime - (cycletime - fit4))
+                    {
+                        homapage.listBox10.Items.Add(chr_some[i].Chrsome[j] + 1 + "- " + ".iş" + "---" + " Time=" + " " + dutytime[chr_some[i].Chrsome[j]]);
+
+                        fit5 = fit5 + dutytime[chr_some[i].Chrsome[j]];
+                        
+
+
+                    }
+                   else if (sum > 5 * cycletime - (cycletime - fit5) && sum < 6 * cycletime - (cycletime - fit5))
+                    {
+                        homapage.listBox11.Items.Add(chr_some[i].Chrsome[j] + 1 + "- " + ".iş" + "---" + " Time=" + " " + dutytime[chr_some[i].Chrsome[j]]);
+
+                        fit6 = fit6 + dutytime[chr_some[i].Chrsome[j]];
+
+                    }
+
+                  else  if (sum > 6* cycletime - (cycletime - fit6) && sum < 7 * cycletime - fit6)
+                    {
+                        homapage.listBox13.Items.Add(chr_some[i].Chrsome[j] + 1 + "- " + ".iş" + "---" + " Time=" + " " + dutytime[chr_some[i].Chrsome[j]]);
+
+                        fit7 = fit7 + dutytime[chr_some[i].Chrsome[j]];
+
+                    }
+
+                  else  if (sum > 7 * cycletime - (cycletime - fit7) && sum < 8 * cycletime - fit7)
+                    {
+                        homapage.listBox14.Items.Add(chr_some[i].Chrsome[j] + 1 + "- " + ".iş" + "---" + " Time=" + " " + dutytime[chr_some[i].Chrsome[j]]);
+
+                        fit8 = fit8 + dutytime[chr_some[i].Chrsome[j]];
+
+                    }
+
+                   else if (sum > 8 * cycletime - (cycletime - fit8) && sum <9* cycletime  - fit8)
+                    {
+                        homapage.listBox15.Items.Add(chr_some[i].Chrsome[j] + 1 + "- " + ".iş" + "---" + " Time=" + " " + dutytime[chr_some[i].Chrsome[j]]);
+
+                        fit9 = fit9 + dutytime[chr_some[i].Chrsome[j]];
+
+                    }
+
+                   else if (sum > 9 * cycletime -  fit9 && sum <= 10 * cycletime - fit9)
+                    {
+                        homapage.listBox16.Items.Add(chr_some[i].Chrsome[j] + 1 + "- " + ".iş" + "---" + " Time=" + " " + dutytime[chr_some[i].Chrsome[j]]);
+
+                        fit10 = fit10 + dutytime[chr_some[i].Chrsome[j]];
+
+                    }
+
+
+
+
+                  else  if (sum > 10 * cycletime - (cycletime - fit9))
+                    {
+                        homapage.listBox17.Items.Add(chr_some[i].Chrsome[j] + 1 + "- " + ".iş" + "---" + " Time=" + " " + dutytime[chr_some[i].Chrsome[j]]);
+
+
+                        fit11 = fit11 + dutytime[chr_some[i].Chrsome[j]];
+                    }
+
+
+                 
+                }
+                sum = 0;
+                homapage.listBox4.Items.Add(fit1);
+                homapage.listBox5.Items.Add(fit2);
+                homapage.listBox6.Items.Add(fit3);
+                homapage.listBox24.Items.Add(fit4);
+                homapage.listBox23.Items.Add(fit5);
+                homapage.listBox22.Items.Add(fit6);
+                homapage.listBox9.Items.Add(fit7);
+                homapage.listBox8.Items.Add(fit8);
+                homapage.listBox7.Items.Add(fit9);
+                homapage.listBox21.Items.Add(fit10);
+                homapage.listBox20.Items.Add(fit11);
+              
+               totalfitnes[0] = Math.Pow((cycletime - fit1),2);
+               totalfitnes[1] = Math.Pow((cycletime - fit2), 2);
+               totalfitnes[2] = Math.Pow((cycletime - fit3), 2);
+               totalfitnes[3] = Math.Pow((cycletime - fit4), 2);
+               totalfitnes[4]= Math.Pow((cycletime - fit5), 2);
+               totalfitnes[5]= Math.Pow((cycletime - fit6), 2);
+               totalfitnes[6] = Math.Pow((cycletime - fit7), 2);
+               totalfitnes[7] = Math.Pow((cycletime - fit8), 2);
+               totalfitnes[8] = Math.Pow((cycletime - fit9), 2);
+               totalfitnes[9] = Math.Pow((cycletime - fit10), 2);
+               totalfitnes[10] = Math.Pow((cycletime - fit11), 2);
+               
+
+                chr_some[i].alltototalfitness= (totalfitnes[0] + totalfitnes[1] + totalfitnes[2] + totalfitnes[3] + totalfitnes[4]+totalfitnes[5]+ totalfitnes[6] + totalfitnes[7] + totalfitnes[8] + totalfitnes[9] + totalfitnes[10] ) / dutytime.Length;
+                fit1 = 0;
+                fit2 = 0;
+                fit3 = 0;
+                fit4 = 0;
+                fit5 = 0;
+                fit6 = 0;
+                fit7 = 0;
+                fit8 = 0;
+                fit9 = 0;
+                fit10 = 0;
+                fit11 = 0;
+                
+                homapage.listBox1.Items.Add(i+1+" "+".Population-----");
+                homapage.listBox2.Items.Add(i+1 + " " + ".Population-----");
+                homapage.listBox3.Items.Add(i+1 + " " + ".Population-----");
+                homapage.listBox12.Items.Add(i+1 + " " + ".Population------");
+                homapage.listBox10.Items.Add(i+1 + " " + ".Population------");
+                homapage.listBox11.Items.Add(i + 1 + " " + ".Population------");
+                homapage.listBox13.Items.Add(i + 1 + " " + ".Population------");
+                homapage.listBox14.Items.Add(i + 1 + " " + ".Population------");
+                homapage.listBox15.Items.Add(i + 1 + " " + ".Population------");
+                homapage.listBox16.Items.Add(i + 1 + " " + ".Population------");
+                homapage.listBox17.Items.Add(i + 1 + " " + ".Population------");
+
+
+                homapage.listtotalfitnes.Items.Add((i + 1) + "-" + ".Population Fitness= " + " " + chr_some[i].alltototalfitness);
+               
+            }
+            
+            homapage.listtotalfitnes.Items.Add("------------");
+           
+        } 
+
+
+
+
+
+
+       
+        int[,] matrixx = new int[29, 10];
+        int[,] matrix1 = new int[29, 10];
+        int[,] matrix2 = new int[29, 10];
+        int[,] matrix3 = new int[29, 10];
+        int[,] matrixmut = new int[29, 10];
+        double[] dutytime = new double[29];
+        double cycletime = 1.47;
+       double[] hide = new double[29];
+        public void Presedince()
+        {
+            matrixx[0, 0] = 0;
+            matrixx[0, 1] = 0;
+            matrixx[0, 2] = 0;
+            matrixx[0, 3] = 0;
+            matrixx[0, 4] = 0;
+            matrixx[0, 5] = 0;
+            matrixx[0, 6] = 0;
+            matrixx[0, 7] = 0;
+            matrixx[0, 8] = 0;
+            matrixx[0, 9] = 0;
+
+            matrixx[1, 0] = 1;
+            matrixx[1, 1] = 0;
+            matrixx[1, 2] = 0;
+            matrixx[1, 3] = 0;
+            matrixx[1, 4] = 0;
+            matrixx[1, 5] = 0;
+            matrixx[1, 6] = 0;
+            matrixx[1, 7] = 0;
+            matrixx[1, 8] = 0;
+            matrixx[1, 9] = 0;
+
+            matrixx[2, 0] = 2;
+            matrixx[2, 1] = 0;
+            matrixx[2, 2] = 0;
+            matrixx[2, 3] = 0;
+            matrixx[2, 4] = 0;
+            matrixx[2, 5] = 0;
+            matrixx[2, 6] = 0;
+            matrixx[2, 7] = 0;
+            matrixx[2, 8] = 0;
+            matrixx[2, 9] = 0;
+
+            matrixx[3, 0] = 0;
+            matrixx[3, 1] = 0;
+            matrixx[3, 2] = 0;
+            matrixx[3, 3] = 0;
+            matrixx[3, 4] = 0;
+            matrixx[3, 5] = 0;
+            matrixx[3, 6] = 0;
+            matrixx[3, 7] = 0;
+            matrixx[3, 8] = 0;
+            matrixx[3, 9] = 0;
+
+
+            matrixx[4, 0] = 4;
+            matrixx[4, 1] = 0;
+            matrixx[4, 2] = 0;
+            matrixx[4, 3] = 0;
+            matrixx[4, 4] = 0;
+            matrixx[4, 5] = 0;
+            matrixx[4, 6] = 0;
+            matrixx[4, 7] = 0;
+            matrixx[4, 8] = 0;
+            matrixx[4, 9] = 0;
+
+            matrixx[5, 0] = 0;
+            matrixx[5, 1] = 0;
+            matrixx[5, 2] = 0;
+            matrixx[5, 3] = 0;
+            matrixx[5, 4] = 0;
+            matrixx[5, 5] = 0;
+            matrixx[5, 6] = 0;
+            matrixx[5, 7] = 0;
+            matrixx[5, 8] = 0;
+            matrixx[5, 9] = 0;
+
+            matrixx[6, 0] = 6;
+            matrixx[6, 1] = 0;
+            matrixx[6, 2] = 0;
+            matrixx[6, 3] = 0;
+            matrixx[6, 4] = 0;
+            matrixx[6, 5] = 0;
+            matrixx[6, 6] = 0;
+            matrixx[6, 7] = 0;
+            matrixx[6, 8] = 0;
+            matrixx[6, 9] = 0;
+
+            matrixx[7, 0] = 7;
+            matrixx[7, 1] = 0;
+            matrixx[7, 2] = 0;
+            matrixx[7, 3] = 0;
+            matrixx[7, 4] = 0;
+            matrixx[7, 5] = 0;
+            matrixx[7, 6] = 0;
+            matrixx[7, 7] = 0;
+            matrixx[7, 8] = 0;
+            matrixx[7, 9] = 0;
+
+            matrixx[8, 0] = 0;
+            matrixx[8, 1] = 0;
+            matrixx[8, 2] = 0;
+            matrixx[8, 3] = 0;
+            matrixx[8, 4] = 0;
+            matrixx[8, 5] = 0;
+            matrixx[8, 6] = 0;
+            matrixx[8, 7] = 0;
+            matrixx[8, 8] = 0;
+            matrixx[8, 9] = 0;
+
+            matrixx[9, 0] = 9;
+            matrixx[9, 1] = 0;
+            matrixx[9, 2] = 0;
+            matrixx[9, 3] = 0;
+            matrixx[9, 4] = 0;
+            matrixx[9, 5] = 0;
+            matrixx[9, 6] = 0;
+            matrixx[9, 7] = 0;
+            matrixx[9, 8] = 0;
+            matrixx[9, 9] = 0;
+
+            matrixx[10, 0] = 10;
+            matrixx[10, 1] = 0;
+            matrixx[10, 2] = 0;
+            matrixx[10, 3] = 0;
+            matrixx[10, 4] = 0;
+            matrixx[10, 5] = 0;
+            matrixx[10, 6] = 0;
+            matrixx[10, 7] = 0;
+            matrixx[10, 8] = 0;
+            matrixx[10, 9] = 0;
+
+            matrixx[11, 0] = 0;
+            matrixx[11, 1] = 0;
+            matrixx[11, 2] = 0;
+            matrixx[11, 3] = 0;
+            matrixx[11, 4] = 0;
+            matrixx[11, 5] = 0;
+            matrixx[11, 6] = 0;
+            matrixx[11, 7] = 0;
+            matrixx[11, 8] = 0;
+            matrixx[11, 9] = 0;
+
+            matrixx[12, 0] = 0;
+            matrixx[12, 1] = 0;
+            matrixx[12, 2] = 0;
+            matrixx[12, 3] = 0;
+            matrixx[12, 4] = 0;
+            matrixx[12, 5] = 0;
+            matrixx[12, 6] = 0;
+            matrixx[12, 7] = 0;
+            matrixx[12, 8] = 0;
+            matrixx[12, 9] = 0;
+
+            matrixx[13, 0] = 0;
+            matrixx[13, 1] = 0;
+            matrixx[13, 2] = 0;
+            matrixx[13, 3] = 0;
+            matrixx[13, 4] = 0;
+            matrixx[13, 5] = 0;
+            matrixx[13, 6] = 0;
+            matrixx[13, 7] = 0;
+            matrixx[13, 8] = 0;
+            matrixx[13, 9] = 0;
+
+            matrixx[14, 0] = 0;
+            matrixx[14, 1] = 0;
+            matrixx[14, 2] = 0;
+            matrixx[14, 3] = 0;
+            matrixx[14, 4] = 0;
+            matrixx[14, 5] = 0;
+            matrixx[14, 6] = 0;
+            matrixx[14, 7] = 0;
+            matrixx[14, 8] = 0;
+            matrixx[14, 9] = 0;
+
+            matrixx[15, 0] = 15;
+            matrixx[15, 1] = 0;
+            matrixx[15, 2] = 0;
+            matrixx[15, 3] = 0;
+            matrixx[15, 4] = 0;
+            matrixx[15, 5] = 0;
+            matrixx[15, 6] = 0;
+            matrixx[15, 7] = 0;
+            matrixx[15, 8] = 0;
+            matrixx[15, 9] = 0;
+
+            matrixx[16, 0] = 0;
+            matrixx[16, 1] = 0;
+            matrixx[16, 2] = 0;
+            matrixx[16, 3] = 0;
+            matrixx[16, 4] = 0;
+            matrixx[16, 5] = 0;
+            matrixx[16, 6] = 0;
+            matrixx[16, 7] = 0;
+            matrixx[16, 8] = 0;
+            matrixx[16, 9] = 0;
+
+            matrixx[17, 0] = 0;
+            matrixx[17, 1] = 0;
+            matrixx[17, 2] = 0;
+            matrixx[17, 3] = 0;
+            matrixx[17, 4] = 0;
+            matrixx[17, 5] = 0;
+            matrixx[17, 6] = 0;
+            matrixx[17, 7] = 0;
+            matrixx[17, 8] = 0;
+            matrixx[17, 9] = 0;
+
+            matrixx[18, 0] = 18;
+            matrixx[18, 1] = 0;
+            matrixx[18, 2] = 0;
+            matrixx[18, 3] = 0;
+            matrixx[18, 4] = 0;
+            matrixx[18, 5] = 0;
+            matrixx[18, 6] = 0;
+            matrixx[18, 7] = 0;
+            matrixx[18, 8] = 0;
+            matrixx[18, 9] = 0;
+
+            matrixx[19, 0] = 0;
+            matrixx[19, 1] = 0;
+            matrixx[19, 2] = 0;
+            matrixx[19, 3] = 0;
+            matrixx[19, 4] = 0;
+            matrixx[19, 5] = 0;
+            matrixx[19, 6] = 0;
+            matrixx[19, 7] = 0;
+            matrixx[19, 8] = 0;
+            matrixx[19, 9] = 0;
+
+            matrixx[20, 0] = 3;
+            matrixx[20, 1] = 5;
+            matrixx[20, 2] = 8;
+            matrixx[20, 3] = 11;
+            matrixx[20, 4] = 12;
+            matrixx[20, 5] = 13;
+            matrixx[20, 6] = 14;
+            matrixx[20, 7] = 16;
+            matrixx[20, 8] = 19;
+            matrixx[20, 9] = 20;
+
+            matrixx[21, 0] = 21;
+            matrixx[21, 1] = 0;
+            matrixx[21, 2] = 0;
+            matrixx[21, 3] = 0;
+            matrixx[21, 4] = 0;
+            matrixx[21, 5] = 0;
+            matrixx[21, 6] = 0;
+            matrixx[21, 7] = 0;
+            matrixx[21, 8] = 0;
+            matrixx[21, 9] = 0;
+
+            matrixx[22, 0] =22;
+            matrixx[22, 1] = 0;
+            matrixx[22, 2] = 0;
+            matrixx[22, 3] = 0;
+            matrixx[22, 4] = 0;
+            matrixx[22, 5] = 0;
+            matrixx[22, 6] = 0;
+            matrixx[22, 7] = 0;
+            matrixx[22, 8] = 0;
+            matrixx[22, 9] = 0;
+
+            matrixx[23, 0] = 23;
+            matrixx[23, 1] = 0;
+            matrixx[23, 2] = 0;
+            matrixx[23, 3] = 0;
+            matrixx[23, 4] = 0;
+            matrixx[23, 5] = 0;
+            matrixx[23, 6] = 0;
+            matrixx[23, 7] = 0;
+            matrixx[23, 8] = 0;
+            matrixx[23, 9] = 0;
+
+            matrixx[24, 0] = 24;
+            matrixx[24, 1] = 0;
+            matrixx[24, 2] = 0;
+            matrixx[24, 3] = 0;
+            matrixx[24, 4] = 0;
+            matrixx[24, 5] = 0;
+            matrixx[24, 6] = 0;
+            matrixx[24, 7] = 0;
+            matrixx[24, 8] = 0;
+            matrixx[24, 9] = 0;
+
+            matrixx[25, 0] = 25;
+            matrixx[25, 1] = 0;
+            matrixx[25, 2] = 0;
+            matrixx[25, 3] = 0;
+            matrixx[25, 4] = 0;
+            matrixx[25, 5] = 0;
+            matrixx[25, 6] = 0;
+            matrixx[25, 7] = 0;
+            matrixx[25, 8] = 0;
+            matrixx[25, 9] = 0;
+
+            matrixx[26, 0] = 26;
+            matrixx[26, 1] = 0;
+            matrixx[26, 2] = 0;
+            matrixx[26, 3] = 0;
+            matrixx[26, 4] = 0;
+            matrixx[26, 5] = 0;
+            matrixx[26, 6] = 0;
+            matrixx[26, 7] = 0;
+            matrixx[26, 8] = 0;
+            matrixx[26, 9] = 0;
+
+            matrixx[27, 0] = 27;
+            matrixx[27, 1] = 0;
+            matrixx[27, 2] = 0;
+            matrixx[27, 3] = 0;
+            matrixx[27, 4] = 0;
+            matrixx[27, 5] = 0;
+            matrixx[27, 6] = 0;
+            matrixx[27, 7] = 0;
+            matrixx[27, 8] = 0;
+            matrixx[27, 9] = 0;
+
+            matrixx[28, 0] = 28;
+            matrixx[28, 1] = 0;
+            matrixx[28, 2] = 0;
+            matrixx[28, 3] = 0;
+            matrixx[28, 4] = 0;
+            matrixx[28, 5] = 0;
+            matrixx[28, 6] = 0;
+            matrixx[28, 7] = 0;
+            matrixx[28, 8] = 0;
+            matrixx[28, 9] = 0;
+
+            dutytime[0] = 0.22;
+            dutytime[1] = 0.04;
+            dutytime[2] = 0.01;
+            dutytime[3] = 0.17;
+            dutytime[4] = 0.02;
+            dutytime[5] = 0.22;
+            dutytime[6] = 0.04;
+            dutytime[7] = 0.03;
+            dutytime[8] = 0.22;
+            dutytime[9] = 0.04;
+            dutytime[10] = 0.02;
+            dutytime[11] = 0.04;
+            dutytime[12] = 0.04;
+            dutytime[13] = 0.06;
+            dutytime[14] = 0.09;
+            dutytime[15] = 0.02;
+            dutytime[16] = 0.12;
+            dutytime[17] = 0.12;
+            dutytime[18] = 0.06;
+            dutytime[19] = 0.14;
+            dutytime[20] = 1.47;
+            dutytime[21] = 1.06;
+            dutytime[22] = 1.11;
+            dutytime[23] = 1.11;
+            dutytime[24] = 1.13;
+            dutytime[25] = 1.33;
+            dutytime[26] = 0.74;
+            dutytime[27] = 0.73;
+            dutytime[28] = 0.23;
+
+
+            //////////////MATRİX1
+
+            matrix1[0, 0] = 0;
+            matrix1[0, 1] = 0;
+            matrix1[0, 2] = 0;
+            matrix1[0, 3] = 0;
+            matrix1[0, 4] = 0;
+            matrix1[0, 5] = 0;
+            matrix1[0, 6] = 0;
+            matrix1[0, 7] = 0;
+            matrix1[0, 8] = 0;
+            matrix1[0, 9] = 0;
+
+            matrix1[1, 0] = 1;
+            matrix1[1, 1] = 0;
+            matrix1[1, 2] = 0;
+            matrix1[1, 3] = 0;
+            matrix1[1, 4] = 0;
+            matrix1[1, 5] = 0;
+            matrix1[1, 6] = 0;
+            matrix1[1, 7] = 0;
+            matrix1[1, 8] = 0;
+            matrix1[1, 9] = 0;
+
+            matrix1[2, 0] = 2;
+            matrix1[2, 1] = 0;
+            matrix1[2, 2] = 0;
+            matrix1[2, 3] = 0;
+            matrix1[2, 4] = 0;
+            matrix1[2, 5] = 0;
+            matrix1[2, 6] = 0;
+            matrix1[2, 7] = 0;
+            matrix1[2, 8] = 0;
+            matrix1[2, 9] = 0;
+
+            matrix1[3, 0] = 0;
+            matrix1[3, 1] = 0;
+            matrix1[3, 2] = 0;
+            matrix1[3, 3] = 0;
+            matrix1[3, 4] = 0;
+            matrix1[3, 5] = 0;
+            matrix1[3, 6] = 0;
+            matrix1[3, 7] = 0;
+            matrix1[3, 8] = 0;
+            matrix1[3, 9] = 0;
+
+
+            matrix1[4, 0] = 4;
+            matrix1[4, 1] = 0;
+            matrix1[4, 2] = 0;
+            matrix1[4, 3] = 0;
+            matrix1[4, 4] = 0;
+            matrix1[4, 5] = 0;
+            matrix1[4, 6] = 0;
+            matrix1[4, 7] = 0;
+            matrix1[4, 8] = 0;
+            matrix1[4, 9] = 0;
+
+            matrix1[5, 0] = 0;
+            matrix1[5, 1] = 0;
+            matrix1[5, 2] = 0;
+            matrix1[5, 3] = 0;
+            matrix1[5, 4] = 0;
+            matrix1[5, 5] = 0;
+            matrix1[5, 6] = 0;
+            matrix1[5, 7] = 0;
+            matrix1[5, 8] = 0;
+            matrix1[5, 9] = 0;
+
+            matrix1[6, 0] = 6;
+            matrix1[6, 1] = 0;
+            matrix1[6, 2] = 0;
+            matrix1[6, 3] = 0;
+            matrix1[6, 4] = 0;
+            matrix1[6, 5] = 0;
+            matrix1[6, 6] = 0;
+            matrix1[6, 7] = 0;
+            matrix1[6, 8] = 0;
+            matrix1[6, 9] = 0;
+
+            matrix1[7, 0] = 7;
+            matrix1[7, 1] = 0;
+            matrix1[7, 2] = 0;
+            matrix1[7, 3] = 0;
+            matrix1[7, 4] = 0;
+            matrix1[7, 5] = 0;
+            matrix1[7, 6] = 0;
+            matrix1[7, 7] = 0;
+            matrix1[7, 8] = 0;
+            matrix1[7, 9] = 0;
+
+            matrix1[8, 0] = 0;
+            matrix1[8, 1] = 0;
+            matrix1[8, 2] = 0;
+            matrix1[8, 3] = 0;
+            matrix1[8, 4] = 0;
+            matrix1[8, 5] = 0;
+            matrix1[8, 6] = 0;
+            matrix1[8, 7] = 0;
+            matrix1[8, 8] = 0;
+            matrix1[8, 9] = 0;
+
+            matrix1[9, 0] = 9;
+            matrix1[9, 1] = 0;
+            matrix1[9, 2] = 0;
+            matrix1[9, 3] = 0;
+            matrix1[9, 4] = 0;
+            matrix1[9, 5] = 0;
+            matrix1[9, 6] = 0;
+            matrix1[9, 7] = 0;
+            matrix1[9, 8] = 0;
+            matrix1[9, 9] = 0;
+
+            matrix1[10, 0] = 10;
+            matrix1[10, 1] = 0;
+            matrix1[10, 2] = 0;
+            matrix1[10, 3] = 0;
+            matrix1[10, 4] = 0;
+            matrix1[10, 5] = 0;
+            matrix1[10, 6] = 0;
+            matrix1[10, 7] = 0;
+            matrix1[10, 8] = 0;
+            matrix1[10, 9] = 0;
+
+            matrix1[11, 0] = 0;
+            matrix1[11, 1] = 0;
+            matrix1[11, 2] = 0;
+            matrix1[11, 3] = 0;
+            matrix1[11, 4] = 0;
+            matrix1[11, 5] = 0;
+            matrix1[11, 6] = 0;
+            matrix1[11, 7] = 0;
+            matrix1[11, 8] = 0;
+            matrix1[11, 9] = 0;
+
+            matrix1[12, 0] = 0;
+            matrix1[12, 1] = 0;
+            matrix1[12, 2] = 0;
+            matrix1[12, 3] = 0;
+            matrix1[12, 4] = 0;
+            matrix1[12, 5] = 0;
+            matrix1[12, 6] = 0;
+            matrix1[12, 7] = 0;
+            matrix1[12, 8] = 0;
+            matrix1[12, 9] = 0;
+
+            matrix1[13, 0] = 0;
+            matrix1[13, 1] = 0;
+            matrix1[13, 2] = 0;
+            matrix1[13, 3] = 0;
+            matrix1[13, 4] = 0;
+            matrix1[13, 5] = 0;
+            matrix1[13, 6] = 0;
+            matrix1[13, 7] = 0;
+            matrix1[13, 8] = 0;
+            matrix1[13, 9] = 0;
+
+            matrix1[14, 0] = 0;
+            matrix1[14, 1] = 0;
+            matrix1[14, 2] = 0;
+            matrix1[14, 3] = 0;
+            matrix1[14, 4] = 0;
+            matrix1[14, 5] = 0;
+            matrix1[14, 6] = 0;
+            matrix1[14, 7] = 0;
+            matrix1[14, 8] = 0;
+            matrix1[14, 9] = 0;
+
+            matrix1[15, 0] = 15;
+            matrix1[15, 1] = 0;
+            matrix1[15, 2] = 0;
+            matrix1[15, 3] = 0;
+            matrix1[15, 4] = 0;
+            matrix1[15, 5] = 0;
+            matrix1[15, 6] = 0;
+            matrix1[15, 7] = 0;
+            matrix1[15, 8] = 0;
+            matrix1[15, 9] = 0;
+
+            matrix1[16, 0] = 0;
+            matrix1[16, 1] = 0;
+            matrix1[16, 2] = 0;
+            matrix1[16, 3] = 0;
+            matrix1[16, 4] = 0;
+            matrix1[16, 5] = 0;
+            matrix1[16, 6] = 0;
+            matrix1[16, 7] = 0;
+            matrix1[16, 8] = 0;
+            matrix1[16, 9] = 0;
+
+            matrix1[17, 0] = 0;
+            matrix1[17, 1] = 0;
+            matrix1[17, 2] = 0;
+            matrix1[17, 3] = 0;
+            matrix1[17, 4] = 0;
+            matrix1[17, 5] = 0;
+            matrix1[17, 6] = 0;
+            matrix1[17, 7] = 0;
+            matrix1[17, 8] = 0;
+            matrix1[17, 9] = 0;
+
+            matrix1[18, 0] = 18;
+            matrix1[18, 1] = 0;
+            matrix1[18, 2] = 0;
+            matrix1[18, 3] = 0;
+            matrix1[18, 4] = 0;
+            matrix1[18, 5] = 0;
+            matrix1[18, 6] = 0;
+            matrix1[18, 7] = 0;
+            matrix1[18, 8] = 0;
+            matrix1[18, 9] = 0;
+
+            matrix1[19, 0] = 0;
+            matrix1[19, 1] = 0;
+            matrix1[19, 2] = 0;
+            matrix1[19, 3] = 0;
+            matrix1[19, 4] = 0;
+            matrix1[19, 5] = 0;
+            matrix1[19, 6] = 0;
+            matrix1[19, 7] = 0;
+            matrix1[19, 8] = 0;
+            matrix1[19, 9] = 0;
+
+            matrix1[20, 0] = 3;
+            matrix1[20, 1] = 5;
+            matrix1[20, 2] = 8;
+            matrix1[20, 3] = 11;
+            matrix1[20, 4] = 12;
+            matrix1[20, 5] = 13;
+            matrix1[20, 6] = 14;
+            matrix1[20, 7] = 16;
+            matrix1[20, 8] = 19;
+            matrix1[20, 9] = 20;
+
+            matrix1[21, 0] = 21;
+            matrix1[21, 1] = 0;
+            matrix1[21, 2] = 0;
+            matrix1[21, 3] = 0;
+            matrix1[21, 4] = 0;
+            matrix1[21, 5] = 0;
+            matrix1[21, 6] = 0;
+            matrix1[21, 7] = 0;
+            matrix1[21, 8] = 0;
+            matrix1[21, 9] = 0;
+
+            matrix1[22, 0] = 22;
+            matrix1[22, 1] = 0;
+            matrix1[22, 2] = 0;
+            matrix1[22, 3] = 0;
+            matrix1[22, 4] = 0;
+            matrix1[22, 5] = 0;
+            matrix1[22, 6] = 0;
+            matrix1[22, 7] = 0;
+            matrix1[22, 8] = 0;
+            matrix1[22, 9] = 0;
+
+            matrix1[23, 0] = 23;
+            matrix1[23, 1] = 0;
+            matrix1[23, 2] = 0;
+            matrix1[23, 3] = 0;
+            matrix1[23, 4] = 0;
+            matrix1[23, 5] = 0;
+            matrix1[23, 6] = 0;
+            matrix1[23, 7] = 0;
+            matrix1[23, 8] = 0;
+            matrix1[23, 9] = 0;
+
+            matrix1[24, 0] = 24;
+            matrix1[24, 1] = 0;
+            matrix1[24, 2] = 0;
+            matrix1[24, 3] = 0;
+            matrix1[24, 4] = 0;
+            matrix1[24, 5] = 0;
+            matrix1[24, 6] = 0;
+            matrix1[24, 7] = 0;
+            matrix1[24, 8] = 0;
+            matrix1[24, 9] = 0;
+
+            matrix1[25, 0] = 25;
+            matrix1[25, 1] = 0;
+            matrix1[25, 2] = 0;
+            matrix1[25, 3] = 0;
+            matrix1[25, 4] = 0;
+            matrix1[25, 5] = 0;
+            matrix1[25, 6] = 0;
+            matrix1[25, 7] = 0;
+            matrix1[25, 8] = 0;
+            matrix1[25, 9] = 0;
+
+            matrix1[26, 0] = 26;
+            matrix1[26, 1] = 0;
+            matrix1[26, 2] = 0;
+            matrix1[26, 3] = 0;
+            matrix1[26, 4] = 0;
+            matrix1[26, 5] = 0;
+            matrix1[26, 6] = 0;
+            matrix1[26, 7] = 0;
+            matrix1[26, 8] = 0;
+            matrix1[26, 9] = 0;
+
+            matrix1[27, 0] = 27;
+            matrix1[27, 1] = 0;
+            matrix1[27, 2] = 0;
+            matrix1[27, 3] = 0;
+            matrix1[27, 4] = 0;
+            matrix1[27, 5] = 0;
+            matrix1[27, 6] = 0;
+            matrix1[27, 7] = 0;
+            matrix1[27, 8] = 0;
+            matrix1[27, 9] = 0;
+
+            matrix1[28, 0] = 28;
+            matrix1[28, 1] = 0;
+            matrix1[28, 2] = 0;
+            matrix1[28, 3] = 0;
+            matrix1[28, 4] = 0;
+            matrix1[28, 5] = 0;
+            matrix1[28, 6] = 0;
+            matrix1[28, 7] = 0;
+            matrix1[28, 8] = 0;
+            matrix1[28, 9] = 0;
+            //////////////MATRİX2
+
+            matrix2[0, 0] = 0;
+            matrix2[0, 1] = 0;
+            matrix2[0, 2] = 0;
+            matrix2[0, 3] = 0;
+            matrix2[0, 4] = 0;
+            matrix2[0, 5] = 0;
+            matrix2[0, 6] = 0;
+            matrix2[0, 7] = 0;
+            matrix2[0, 8] = 0;
+            matrix2[0, 9] = 0;
+
+            matrix2[1, 0] = 1;
+            matrix2[1, 1] = 0;
+            matrix2[1, 2] = 0;
+            matrix2[1, 3] = 0;
+            matrix2[1, 4] = 0;
+            matrix2[1, 5] = 0;
+            matrix2[1, 6] = 0;
+            matrix2[1, 7] = 0;
+            matrix2[1, 8] = 0;
+            matrix2[1, 9] = 0;
+
+            matrix2[2, 0] = 2;
+            matrix2[2, 1] = 0;
+            matrix2[2, 2] = 0;
+            matrix2[2, 3] = 0;
+            matrix2[2, 4] = 0;
+            matrix2[2, 5] = 0;
+            matrix2[2, 6] = 0;
+            matrix2[2, 7] = 0;
+            matrix2[2, 8] = 0;
+            matrix2[2, 9] = 0;
+
+            matrix2[3, 0] = 0;
+            matrix2[3, 1] = 0;
+            matrix2[3, 2] = 0;
+            matrix2[3, 3] = 0;
+            matrix2[3, 4] = 0;
+            matrix2[3, 5] = 0;
+            matrix2[3, 6] = 0;
+            matrix2[3, 7] = 0;
+            matrix2[3, 8] = 0;
+            matrix2[3, 9] = 0;
+
+
+            matrix2[4, 0] = 4;
+            matrix2[4, 1] = 0;
+            matrix2[4, 2] = 0;
+            matrix2[4, 3] = 0;
+            matrix2[4, 4] = 0;
+            matrix2[4, 5] = 0;
+            matrix2[4, 6] = 0;
+            matrix2[4, 7] = 0;
+            matrix2[4, 8] = 0;
+            matrix2[4, 9] = 0;
+
+            matrix2[5, 0] = 0;
+            matrix2[5, 1] = 0;
+            matrix2[5, 2] = 0;
+            matrix2[5, 3] = 0;
+            matrix2[5, 4] = 0;
+            matrix2[5, 5] = 0;
+            matrix2[5, 6] = 0;
+            matrix2[5, 7] = 0;
+            matrix2[5, 8] = 0;
+            matrix2[5, 9] = 0;
+
+            matrix2[6, 0] = 6;
+            matrix2[6, 1] = 0;
+            matrix2[6, 2] = 0;
+            matrix2[6, 3] = 0;
+            matrix2[6, 4] = 0;
+            matrix2[6, 5] = 0;
+            matrix2[6, 6] = 0;
+            matrix2[6, 7] = 0;
+            matrix2[6, 8] = 0;
+            matrix2[6, 9] = 0;
+
+            matrix2[7, 0] = 7;
+            matrix2[7, 1] = 0;
+            matrix2[7, 2] = 0;
+            matrix2[7, 3] = 0;
+            matrix2[7, 4] = 0;
+            matrix2[7, 5] = 0;
+            matrix2[7, 6] = 0;
+            matrix2[7, 7] = 0;
+            matrix2[7, 8] = 0;
+            matrix2[7, 9] = 0;
+
+            matrix2[8, 0] = 0;
+            matrix2[8, 1] = 0;
+            matrix2[8, 2] = 0;
+            matrix2[8, 3] = 0;
+            matrix2[8, 4] = 0;
+            matrix2[8, 5] = 0;
+            matrix2[8, 6] = 0;
+            matrix2[8, 7] = 0;
+            matrix2[8, 8] = 0;
+            matrix2[8, 9] = 0;
+
+            matrix2[9, 0] = 9;
+            matrix2[9, 1] = 0;
+            matrix2[9, 2] = 0;
+            matrix2[9, 3] = 0;
+            matrix2[9, 4] = 0;
+            matrix2[9, 5] = 0;
+            matrix2[9, 6] = 0;
+            matrix2[9, 7] = 0;
+            matrix2[9, 8] = 0;
+            matrix2[9, 9] = 0;
+
+            matrix2[10, 0] = 10;
+            matrix2[10, 1] = 0;
+            matrix2[10, 2] = 0;
+            matrix2[10, 3] = 0;
+            matrix2[10, 4] = 0;
+            matrix2[10, 5] = 0;
+            matrix2[10, 6] = 0;
+            matrix2[10, 7] = 0;
+            matrix2[10, 8] = 0;
+            matrix2[10, 9] = 0;
+
+            matrix2[11, 0] = 0;
+            matrix2[11, 1] = 0;
+            matrix2[11, 2] = 0;
+            matrix2[11, 3] = 0;
+            matrix2[11, 4] = 0;
+            matrix2[11, 5] = 0;
+            matrix2[11, 6] = 0;
+            matrix2[11, 7] = 0;
+            matrix2[11, 8] = 0;
+            matrix2[11, 9] = 0;
+
+            matrix2[12, 0] = 0;
+            matrix2[12, 1] = 0;
+            matrix2[12, 2] = 0;
+            matrix2[12, 3] = 0;
+            matrix2[12, 4] = 0;
+            matrix2[12, 5] = 0;
+            matrix2[12, 6] = 0;
+            matrix2[12, 7] = 0;
+            matrix2[12, 8] = 0;
+            matrix2[12, 9] = 0;
+
+            matrix2[13, 0] = 0;
+            matrix2[13, 1] = 0;
+            matrix2[13, 2] = 0;
+            matrix2[13, 3] = 0;
+            matrix2[13, 4] = 0;
+            matrix2[13, 5] = 0;
+            matrix2[13, 6] = 0;
+            matrix2[13, 7] = 0;
+            matrix2[13, 8] = 0;
+            matrix2[13, 9] = 0;
+
+            matrix2[14, 0] = 0;
+            matrix2[14, 1] = 0;
+            matrix2[14, 2] = 0;
+            matrix2[14, 3] = 0;
+            matrix2[14, 4] = 0;
+            matrix2[14, 5] = 0;
+            matrix2[14, 6] = 0;
+            matrix2[14, 7] = 0;
+            matrix2[14, 8] = 0;
+            matrix2[14, 9] = 0;
+
+            matrix2[15, 0] = 15;
+            matrix2[15, 1] = 0;
+            matrix2[15, 2] = 0;
+            matrix2[15, 3] = 0;
+            matrix2[15, 4] = 0;
+            matrix2[15, 5] = 0;
+            matrix2[15, 6] = 0;
+            matrix2[15, 7] = 0;
+            matrix2[15, 8] = 0;
+            matrix2[15, 9] = 0;
+
+            matrix2[16, 0] = 0;
+            matrix2[16, 1] = 0;
+            matrix2[16, 2] = 0;
+            matrix2[16, 3] = 0;
+            matrix2[16, 4] = 0;
+            matrix2[16, 5] = 0;
+            matrix2[16, 6] = 0;
+            matrix2[16, 7] = 0;
+            matrix2[16, 8] = 0;
+            matrix2[16, 9] = 0;
+
+            matrix2[17, 0] = 0;
+            matrix2[17, 1] = 0;
+            matrix2[17, 2] = 0;
+            matrix2[17, 3] = 0;
+            matrix2[17, 4] = 0;
+            matrix2[17, 5] = 0;
+            matrix2[17, 6] = 0;
+            matrix2[17, 7] = 0;
+            matrix2[17, 8] = 0;
+            matrix2[17, 9] = 0;
+
+            matrix2[18, 0] = 18;
+            matrix2[18, 1] = 0;
+            matrix2[18, 2] = 0;
+            matrix2[18, 3] = 0;
+            matrix2[18, 4] = 0;
+            matrix2[18, 5] = 0;
+            matrix2[18, 6] = 0;
+            matrix2[18, 7] = 0;
+            matrix2[18, 8] = 0;
+            matrix2[18, 9] = 0;
+
+            matrix2[19, 0] = 0;
+            matrix2[19, 1] = 0;
+            matrix2[19, 2] = 0;
+            matrix2[19, 3] = 0;
+            matrix2[19, 4] = 0;
+            matrix2[19, 5] = 0;
+            matrix2[19, 6] = 0;
+            matrix2[19, 7] = 0;
+            matrix2[19, 8] = 0;
+            matrix2[19, 9] = 0;
+
+            matrix2[20, 0] = 3;
+            matrix2[20, 1] = 5;
+            matrix2[20, 2] = 8;
+            matrix2[20, 3] = 11;
+            matrix2[20, 4] = 12;
+            matrix2[20, 5] = 13;
+            matrix2[20, 6] = 14;
+            matrix2[20, 7] = 16;
+            matrix2[20, 8] = 19;
+            matrix2[20, 9] = 20;
+
+            matrix2[21, 0] = 21;
+            matrix2[21, 1] = 0;
+            matrix2[21, 2] = 0;
+            matrix2[21, 3] = 0;
+            matrix2[21, 4] = 0;
+            matrix2[21, 5] = 0;
+            matrix2[21, 6] = 0;
+            matrix2[21, 7] = 0;
+            matrix2[21, 8] = 0;
+            matrix2[21, 9] = 0;
+
+            matrix2[22, 0] = 22;
+            matrix2[22, 1] = 0;
+            matrix2[22, 2] = 0;
+            matrix2[22, 3] = 0;
+            matrix2[22, 4] = 0;
+            matrix2[22, 5] = 0;
+            matrix2[22, 6] = 0;
+            matrix2[22, 7] = 0;
+            matrix2[22, 8] = 0;
+            matrix2[22, 9] = 0;
+
+            matrix2[23, 0] = 23;
+            matrix2[23, 1] = 0;
+            matrix2[23, 2] = 0;
+            matrix2[23, 3] = 0;
+            matrix2[23, 4] = 0;
+            matrix2[23, 5] = 0;
+            matrix2[23, 6] = 0;
+            matrix2[23, 7] = 0;
+            matrix2[23, 8] = 0;
+            matrix2[23, 9] = 0;
+
+            matrix2[24, 0] = 24;
+            matrix2[24, 1] = 0;
+            matrix2[24, 2] = 0;
+            matrix2[24, 3] = 0;
+            matrix2[24, 4] = 0;
+            matrix2[24, 5] = 0;
+            matrix2[24, 6] = 0;
+            matrix2[24, 7] = 0;
+            matrix2[24, 8] = 0;
+            matrix2[24, 9] = 0;
+
+            matrix2[25, 0] = 25;
+            matrix2[25, 1] = 0;
+            matrix2[25, 2] = 0;
+            matrix2[25, 3] = 0;
+            matrix2[25, 4] = 0;
+            matrix2[25, 5] = 0;
+            matrix2[25, 6] = 0;
+            matrix2[25, 7] = 0;
+            matrix2[25, 8] = 0;
+            matrix2[25, 9] = 0;
+
+            matrix2[26, 0] = 26;
+            matrix2[26, 1] = 0;
+            matrix2[26, 2] = 0;
+            matrix2[26, 3] = 0;
+            matrix2[26, 4] = 0;
+            matrix2[26, 5] = 0;
+            matrix2[26, 6] = 0;
+            matrix2[26, 7] = 0;
+            matrix2[26, 8] = 0;
+            matrix2[26, 9] = 0;
+
+            matrix2[27, 0] = 27;
+            matrix2[27, 1] = 0;
+            matrix2[27, 2] = 0;
+            matrix2[27, 3] = 0;
+            matrix2[27, 4] = 0;
+            matrix2[27, 5] = 0;
+            matrix2[27, 6] = 0;
+            matrix2[27, 7] = 0;
+            matrix2[27, 8] = 0;
+            matrix2[27, 9] = 0;
+
+            matrix2[28, 0] = 28;
+            matrix2[28, 1] = 0;
+            matrix2[28, 2] = 0;
+            matrix2[28, 3] = 0;
+            matrix2[28, 4] = 0;
+            matrix2[28, 5] = 0;
+            matrix2[28, 6] = 0;
+            matrix2[28, 7] = 0;
+            matrix2[28, 8] = 0;
+            matrix2[28, 9] = 0;
+
+            ///////////////MATRİX3
+
+            matrix3[0, 0] = 0;
+            matrix3[0, 1] = 0;
+            matrix3[0, 2] = 0;
+            matrix3[0, 3] = 0;
+            matrix3[0, 4] = 0;
+            matrix3[0, 5] = 0;
+            matrix3[0, 6] = 0;
+            matrix3[0, 7] = 0;
+            matrix3[0, 8] = 0;
+            matrix3[0, 9] = 0;
+
+            matrix3[1, 0] = 1;
+            matrix3[1, 1] = 0;
+            matrix3[1, 2] = 0;
+            matrix3[1, 3] = 0;
+            matrix3[1, 4] = 0;
+            matrix3[1, 5] = 0;
+            matrix3[1, 6] = 0;
+            matrix3[1, 7] = 0;
+            matrix3[1, 8] = 0;
+            matrix3[1, 9] = 0;
+
+            matrix3[2, 0] = 2;
+            matrix3[2, 1] = 0;
+            matrix3[2, 2] = 0;
+            matrix3[2, 3] = 0;
+            matrix3[2, 4] = 0;
+            matrix3[2, 5] = 0;
+            matrix3[2, 6] = 0;
+            matrix3[2, 7] = 0;
+            matrix3[2, 8] = 0;
+            matrix3[2, 9] = 0;
+
+            matrix3[3, 0] = 0;
+            matrix3[3, 1] = 0;
+            matrix3[3, 2] = 0;
+            matrix3[3, 3] = 0;
+            matrix3[3, 4] = 0;
+            matrix3[3, 5] = 0;
+            matrix3[3, 6] = 0;
+            matrix3[3, 7] = 0;
+            matrix3[3, 8] = 0;
+            matrix3[3, 9] = 0;
+
+
+            matrix3[4, 0] = 4;
+            matrix3[4, 1] = 0;
+            matrix3[4, 2] = 0;
+            matrix3[4, 3] = 0;
+            matrix3[4, 4] = 0;
+            matrix3[4, 5] = 0;
+            matrix3[4, 6] = 0;
+            matrix3[4, 7] = 0;
+            matrix3[4, 8] = 0;
+            matrix3[4, 9] = 0;
+
+            matrix3[5, 0] = 0;
+            matrix3[5, 1] = 0;
+            matrix3[5, 2] = 0;
+            matrix3[5, 3] = 0;
+            matrix3[5, 4] = 0;
+            matrix3[5, 5] = 0;
+            matrix3[5, 6] = 0;
+            matrix3[5, 7] = 0;
+            matrix3[5, 8] = 0;
+            matrix3[5, 9] = 0;
+
+            matrix3[6, 0] = 6;
+            matrix3[6, 1] = 0;
+            matrix3[6, 2] = 0;
+            matrix3[6, 3] = 0;
+            matrix3[6, 4] = 0;
+            matrix3[6, 5] = 0;
+            matrix3[6, 6] = 0;
+            matrix3[6, 7] = 0;
+            matrix3[6, 8] = 0;
+            matrix3[6, 9] = 0;
+
+            matrix3[7, 0] = 7;
+            matrix3[7, 1] = 0;
+            matrix3[7, 2] = 0;
+            matrix3[7, 3] = 0;
+            matrix3[7, 4] = 0;
+            matrix3[7, 5] = 0;
+            matrix3[7, 6] = 0;
+            matrix3[7, 7] = 0;
+            matrix3[7, 8] = 0;
+            matrix3[7, 9] = 0;
+
+            matrix3[8, 0] = 0;
+            matrix3[8, 1] = 0;
+            matrix3[8, 2] = 0;
+            matrix3[8, 3] = 0;
+            matrix3[8, 4] = 0;
+            matrix3[8, 5] = 0;
+            matrix3[8, 6] = 0;
+            matrix3[8, 7] = 0;
+            matrix3[8, 8] = 0;
+            matrix3[8, 9] = 0;
+
+            matrix3[9, 0] = 9;
+            matrix3[9, 1] = 0;
+            matrix3[9, 2] = 0;
+            matrix3[9, 3] = 0;
+            matrix3[9, 4] = 0;
+            matrix3[9, 5] = 0;
+            matrix3[9, 6] = 0;
+            matrix3[9, 7] = 0;
+            matrix3[9, 8] = 0;
+            matrix3[9, 9] = 0;
+
+            matrix3[10, 0] = 10;
+            matrix3[10, 1] = 0;
+            matrix3[10, 2] = 0;
+            matrix3[10, 3] = 0;
+            matrix3[10, 4] = 0;
+            matrix3[10, 5] = 0;
+            matrix3[10, 6] = 0;
+            matrix3[10, 7] = 0;
+            matrix3[10, 8] = 0;
+            matrix3[10, 9] = 0;
+
+            matrix3[11, 0] = 0;
+            matrix3[11, 1] = 0;
+            matrix3[11, 2] = 0;
+            matrix3[11, 3] = 0;
+            matrix3[11, 4] = 0;
+            matrix3[11, 5] = 0;
+            matrix3[11, 6] = 0;
+            matrix3[11, 7] = 0;
+            matrix3[11, 8] = 0;
+            matrix3[11, 9] = 0;
+
+            matrix3[12, 0] = 0;
+            matrix3[12, 1] = 0;
+            matrix3[12, 2] = 0;
+            matrix3[12, 3] = 0;
+            matrix3[12, 4] = 0;
+            matrix3[12, 5] = 0;
+            matrix3[12, 6] = 0;
+            matrix3[12, 7] = 0;
+            matrix3[12, 8] = 0;
+            matrix3[12, 9] = 0;
+
+            matrix3[13, 0] = 0;
+            matrix3[13, 1] = 0;
+            matrix3[13, 2] = 0;
+            matrix3[13, 3] = 0;
+            matrix3[13, 4] = 0;
+            matrix3[13, 5] = 0;
+            matrix3[13, 6] = 0;
+            matrix3[13, 7] = 0;
+            matrix3[13, 8] = 0;
+            matrix3[13, 9] = 0;
+
+            matrix3[14, 0] = 0;
+            matrix3[14, 1] = 0;
+            matrix3[14, 2] = 0;
+            matrix3[14, 3] = 0;
+            matrix3[14, 4] = 0;
+            matrix3[14, 5] = 0;
+            matrix3[14, 6] = 0;
+            matrix3[14, 7] = 0;
+            matrix3[14, 8] = 0;
+            matrix3[14, 9] = 0;
+
+            matrix3[15, 0] = 15;
+            matrix3[15, 1] = 0;
+            matrix3[15, 2] = 0;
+            matrix3[15, 3] = 0;
+            matrix3[15, 4] = 0;
+            matrix3[15, 5] = 0;
+            matrix3[15, 6] = 0;
+            matrix3[15, 7] = 0;
+            matrix3[15, 8] = 0;
+            matrix3[15, 9] = 0;
+
+            matrix3[16, 0] = 0;
+            matrix3[16, 1] = 0;
+            matrix3[16, 2] = 0;
+            matrix3[16, 3] = 0;
+            matrix3[16, 4] = 0;
+            matrix3[16, 5] = 0;
+            matrix3[16, 6] = 0;
+            matrix3[16, 7] = 0;
+            matrix3[16, 8] = 0;
+            matrix3[16, 9] = 0;
+
+            matrix3[17, 0] = 0;
+            matrix3[17, 1] = 0;
+            matrix3[17, 2] = 0;
+            matrix3[17, 3] = 0;
+            matrix3[17, 4] = 0;
+            matrix3[17, 5] = 0;
+            matrix3[17, 6] = 0;
+            matrix3[17, 7] = 0;
+            matrix3[17, 8] = 0;
+            matrix3[17, 9] = 0;
+
+            matrix3[18, 0] = 18;
+            matrix3[18, 1] = 0;
+            matrix3[18, 2] = 0;
+            matrix3[18, 3] = 0;
+            matrix3[18, 4] = 0;
+            matrix3[18, 5] = 0;
+            matrix3[18, 6] = 0;
+            matrix3[18, 7] = 0;
+            matrix3[18, 8] = 0;
+            matrix3[18, 9] = 0;
+
+            matrix3[19, 0] = 0;
+            matrix3[19, 1] = 0;
+            matrix3[19, 2] = 0;
+            matrix3[19, 3] = 0;
+            matrix3[19, 4] = 0;
+            matrix3[19, 5] = 0;
+            matrix3[19, 6] = 0;
+            matrix3[19, 7] = 0;
+            matrix3[19, 8] = 0;
+            matrix3[19, 9] = 0;
+
+            matrix3[20, 0] = 3;
+            matrix3[20, 1] = 5;
+            matrix3[20, 2] = 8;
+            matrix3[20, 3] = 11;
+            matrix3[20, 4] = 12;
+            matrix3[20, 5] = 13;
+            matrix3[20, 6] = 14;
+            matrix3[20, 7] = 16;
+            matrix3[20, 8] = 19;
+            matrix3[20, 9] = 20;
+
+            matrix3[21, 0] = 21;
+            matrix3[21, 1] = 0;
+            matrix3[21, 2] = 0;
+            matrix3[21, 3] = 0;
+            matrix3[21, 4] = 0;
+            matrix3[21, 5] = 0;
+            matrix3[21, 6] = 0;
+            matrix3[21, 7] = 0;
+            matrix3[21, 8] = 0;
+            matrix3[21, 9] = 0;
+
+            matrix3[22, 0] = 22;
+            matrix3[22, 1] = 0;
+            matrix3[22, 2] = 0;
+            matrix3[22, 3] = 0;
+            matrix3[22, 4] = 0;
+            matrix3[22, 5] = 0;
+            matrix3[22, 6] = 0;
+            matrix3[22, 7] = 0;
+            matrix3[22, 8] = 0;
+            matrix3[22, 9] = 0;
+
+            matrix3[23, 0] = 23;
+            matrix3[23, 1] = 0;
+            matrix3[23, 2] = 0;
+            matrix3[23, 3] = 0;
+            matrix3[23, 4] = 0;
+            matrix3[23, 5] = 0;
+            matrix3[23, 6] = 0;
+            matrix3[23, 7] = 0;
+            matrix3[23, 8] = 0;
+            matrix3[23, 9] = 0;
+
+            matrix3[24, 0] = 24;
+            matrix3[24, 1] = 0;
+            matrix3[24, 2] = 0;
+            matrix3[24, 3] = 0;
+            matrix3[24, 4] = 0;
+            matrix3[24, 5] = 0;
+            matrix3[24, 6] = 0;
+            matrix3[24, 7] = 0;
+            matrix3[24, 8] = 0;
+            matrix3[24, 9] = 0;
+
+            matrix3[25, 0] = 25;
+            matrix3[25, 1] = 0;
+            matrix3[25, 2] = 0;
+            matrix3[25, 3] = 0;
+            matrix3[25, 4] = 0;
+            matrix3[25, 5] = 0;
+            matrix3[25, 6] = 0;
+            matrix3[25, 7] = 0;
+            matrix3[25, 8] = 0;
+            matrix3[25, 9] = 0;
+
+            matrix3[26, 0] = 26;
+            matrix3[26, 1] = 0;
+            matrix3[26, 2] = 0;
+            matrix3[26, 3] = 0;
+            matrix3[26, 4] = 0;
+            matrix3[26, 5] = 0;
+            matrix3[26, 6] = 0;
+            matrix3[26, 7] = 0;
+            matrix3[26, 8] = 0;
+            matrix3[26, 9] = 0;
+
+            matrix3[27, 0] = 27;
+            matrix3[27, 1] = 0;
+            matrix3[27, 2] = 0;
+            matrix3[27, 3] = 0;
+            matrix3[27, 4] = 0;
+            matrix3[27, 5] = 0;
+            matrix3[27, 6] = 0;
+            matrix3[27, 7] = 0;
+            matrix3[27, 8] = 0;
+            matrix3[27, 9] = 0;
+
+            matrix3[28, 0] = 28;
+            matrix3[28, 1] = 0;
+            matrix3[28, 2] = 0;
+            matrix3[28, 3] = 0;
+            matrix3[28, 4] = 0;
+            matrix3[28, 5] = 0;
+            matrix3[28, 6] = 0;
+            matrix3[28, 7] = 0;
+            matrix3[28, 8] = 0;
+            matrix3[28, 9] = 0;
+
+
+            //////Matrixmut1
+            matrixmut[0, 0] = 0;
+            matrixmut[0, 1] = 0;
+            matrixmut[0, 2] = 0;
+            matrixmut[0, 3] = 0;
+            matrixmut[0, 4] = 0;
+            matrixmut[0, 5] = 0;
+            matrixmut[0, 6] = 0;
+            matrixmut[0, 7] = 0;
+            matrixmut[0, 8] = 0;
+            matrixmut[0, 9] = 0;
+
+            matrixmut[1, 0] = 1;
+            matrixmut[1, 1] = 0;
+            matrixmut[1, 2] = 0;
+            matrixmut[1, 3] = 0;
+            matrixmut[1, 4] = 0;
+            matrixmut[1, 5] = 0;
+            matrixmut[1, 6] = 0;
+            matrixmut[1, 8] = 0;
+            matrixmut[1, 9] = 0;
+
+            matrixmut[2, 0] = 2;
+            matrixmut[2, 1] = 0;
+            matrixmut[2, 2] = 0;
+            matrixmut[2, 3] = 0;
+            matrixmut[2, 4] = 0;
+            matrixmut[2, 5] = 0;
+            matrixmut[2, 6] = 0;
+            matrixmut[2, 7] = 0;
+            matrixmut[2, 8] = 0;
+            matrixmut[2, 9] = 0;
+
+            matrixmut[3, 0] = 0;
+            matrixmut[3, 1] = 0;
+            matrixmut[3, 2] = 0;
+            matrixmut[3, 3] = 0;
+            matrixmut[3, 4] = 0;
+            matrixmut[3, 5] = 0;
+            matrixmut[3, 6] = 0;
+            matrixmut[3, 7] = 0;
+            matrixmut[3, 8] = 0;
+            matrixmut[3, 9] = 0;
+
+            matrixmut[4, 0] = 4;
+            matrixmut[4, 1] = 0;
+            matrixmut[4, 2] = 0;
+            matrixmut[4, 3] = 0;
+            matrixmut[4, 4] = 0;
+            matrixmut[4, 5] = 0;
+            matrixmut[4, 6] = 0;
+            matrixmut[4, 7] = 0;
+            matrixmut[4, 8] = 0;
+            matrixmut[4, 9] = 0;
+
+            matrixmut[5, 0] = 0;
+            matrixmut[5, 1] = 0;
+            matrixmut[5, 2] = 0;
+            matrixmut[5, 3] = 0;
+            matrixmut[5, 4] = 0;
+            matrixmut[5, 5] = 0;
+            matrixmut[5, 6] = 0;
+            matrixmut[5, 7] = 0;
+            matrixmut[5, 8] = 0;
+            matrixmut[5, 9] = 0;
+
+            matrixmut[6, 0] = 6;
+            matrixmut[6, 1] = 0;
+            matrixmut[6, 2] = 0;
+            matrixmut[6, 3] = 0;
+            matrixmut[6, 4] = 0;
+            matrixmut[6, 5] = 0;
+            matrixmut[6, 6] = 0;
+            matrixmut[6, 7] = 0;
+            matrixmut[6, 8] = 0;
+            matrixmut[6, 9] = 0;
+
+            matrixmut[7, 0] = 7;
+            matrixmut[7, 1] = 0;
+            matrixmut[7, 2] = 0;
+            matrixmut[7, 3] = 0;
+            matrixmut[7, 4] = 0;
+            matrixmut[7, 5] = 0;
+            matrixmut[7, 6] = 0;
+            matrixmut[7, 7] = 0;
+            matrixmut[7, 8] = 0;
+            matrixmut[7, 9] = 0;
+
+            matrixmut[8, 0] = 0;
+            matrixmut[8, 1] = 0;
+            matrixmut[8, 2] = 0;
+            matrixmut[8, 3] = 0;
+            matrixmut[8, 4] = 0;
+            matrixmut[8, 5] = 0;
+            matrixmut[8, 6] = 0;
+            matrixmut[8, 7] = 0;
+            matrixmut[8, 8] = 0;
+            matrixmut[8, 9] = 0;
+
+            matrixmut[9, 0] = 9;
+            matrixmut[9, 1] = 0;
+            matrixmut[9, 2] = 0;
+            matrixmut[9, 3] = 0;
+            matrixmut[9, 4] = 0;
+            matrixmut[9, 5] = 0;
+            matrixmut[9, 6] = 0;
+            matrixmut[9, 7] = 0;
+            matrixmut[9, 8] = 0;
+            matrixmut[9, 9] = 0;
+
+            matrixmut[10, 0] = 10;
+            matrixmut[10, 1] = 0;
+            matrixmut[10, 2] = 0;
+            matrixmut[10, 3] = 0;
+            matrixmut[10, 4] = 0;
+            matrixmut[10, 5] = 0;
+            matrixmut[10, 6] = 0;
+            matrixmut[10, 7] = 0;
+            matrixmut[10, 8] = 0;
+            matrixmut[10, 9] = 0;
+
+            matrixmut[11, 0] = 0;
+            matrixmut[11, 1] = 0;
+            matrixmut[11, 2] = 0;
+            matrixmut[11, 3] = 0;
+            matrixmut[11, 4] = 0;
+            matrixmut[11, 5] = 0;
+            matrixmut[11, 6] = 0;
+            matrixmut[11, 7] = 0;
+            matrixmut[11, 8] = 0;
+            matrixmut[11, 9] = 0;
+
+            matrixmut[12, 0] = 0;
+            matrixmut[12, 1] = 0;
+            matrixmut[12, 2] = 0;
+            matrixmut[12, 3] = 0;
+            matrixmut[12, 4] = 0;
+            matrixmut[12, 5] = 0;
+            matrixmut[12, 6] = 0;
+            matrixmut[12, 7] = 0;
+            matrixmut[12, 8] = 0;
+            matrixmut[12, 9] = 0;
+
+            matrixmut[13, 0] = 0;
+            matrixmut[13, 1] = 0;
+            matrixmut[13, 2] = 0;
+            matrixmut[13, 3] = 0;
+            matrixmut[13, 4] = 0;
+            matrixmut[13, 5] = 0;
+            matrixmut[13, 6] = 0;
+            matrixmut[13, 7] = 0;
+            matrixmut[13, 8] = 0;
+            matrixmut[13, 9] = 0;
+
+            matrixmut[14, 0] = 0;
+            matrixmut[14, 1] = 0;
+            matrixmut[14, 2] = 0;
+            matrixmut[14, 3] = 0;
+            matrixmut[14, 4] = 0;
+            matrixmut[14, 5] = 0;
+            matrixmut[14, 6] = 0;
+            matrixmut[14, 7] = 0;
+            matrixmut[14, 8] = 0;
+            matrixmut[14, 9] = 0;
+
+
+
+            matrixmut[15, 0] = 15;
+            matrixmut[15, 1] = 0;
+            matrixmut[15, 2] = 0;
+            matrixmut[15, 3] = 0;
+            matrixmut[15, 4] = 0;
+            matrixmut[15, 5] = 0;
+            matrixmut[15, 6] = 0;
+            matrixmut[15, 7] = 0;
+            matrixmut[15, 8] = 0;
+            matrixmut[15, 9] = 0;
+
+            matrixmut[16, 0] = 0;
+            matrixmut[16, 1] = 0;
+            matrixmut[16, 2] = 0;
+            matrixmut[16, 3] = 0;
+            matrixmut[16, 4] = 0;
+            matrixmut[16, 5] = 0;
+            matrixmut[16, 6] = 0;
+            matrixmut[16, 7] = 0;
+            matrixmut[16, 8] = 0;
+            matrixmut[16, 9] = 0;
+
+            matrixmut[17, 0] = 0;
+            matrixmut[17, 1] = 0;
+            matrixmut[17, 2] = 0;
+            matrixmut[17, 3] = 0;
+            matrixmut[17, 4] = 0;
+            matrixmut[17, 5] = 0;
+            matrixmut[17, 6] = 0;
+            matrixmut[17, 7] = 0;
+            matrixmut[17, 8] = 0;
+            matrixmut[17, 9] = 0;
+
+            matrixmut[18, 0] = 18;
+            matrixmut[18, 1] = 0;
+            matrixmut[18, 2] = 0;
+            matrixmut[18, 3] = 0;
+            matrixmut[18, 4] = 0;
+            matrixmut[18, 5] = 0;
+            matrixmut[18, 6] = 0;
+            matrixmut[18, 7] = 0;
+            matrixmut[18, 8] = 0;
+            matrixmut[18, 9] = 0;
+
+            matrixmut[19, 0] = 0;
+            matrixmut[19, 1] = 0;
+            matrixmut[19, 2] = 0;
+            matrixmut[19, 3] = 0;
+            matrixmut[19, 4] = 0;
+            matrixmut[19, 5] = 0;
+            matrixmut[19, 6] = 0;
+            matrixmut[19, 7] = 0;
+            matrixmut[19, 8] = 0;
+            matrixmut[19, 9] = 0;
+
+            matrixmut[20, 0] = 3;
+            matrixmut[20, 1] = 5;
+            matrixmut[20, 2] = 8;
+            matrixmut[20, 3] = 11;
+            matrixmut[20, 4] = 12;
+            matrixmut[20, 5] = 13;
+            matrixmut[20, 6] = 14;
+            matrixmut[20, 7] = 16;
+            matrixmut[20, 8] = 19;
+            matrixmut[20, 9] = 20;
+
+            matrixmut[21, 0] = 21;
+            matrixmut[21, 1] = 0;
+            matrixmut[21, 2] = 0;
+            matrixmut[21, 3] = 0;
+            matrixmut[21, 4] = 0;
+            matrixmut[21, 5] = 0;
+            matrixmut[21, 6] = 0;
+            matrixmut[21, 7] = 0;
+            matrixmut[21, 8] = 0;
+            matrixmut[21, 9] = 0;
+
+            matrixmut[22, 0] = 22;
+            matrixmut[22, 1] = 0;
+            matrixmut[22, 2] = 0;
+            matrixmut[22, 3] = 0;
+            matrixmut[22, 4] = 0;
+            matrixmut[22, 5] = 0;
+            matrixmut[22, 6] = 0;
+            matrixmut[22, 7] = 0;
+            matrixmut[22, 8] = 0;
+            matrixmut[22, 9] = 0;
+
+            matrixmut[23, 0] = 23;
+            matrixmut[23, 1] = 0;
+            matrixmut[23, 2] = 0;
+            matrixmut[23, 3] = 0;
+            matrixmut[23, 4] = 0;
+            matrixmut[23, 5] = 0;
+            matrixmut[23, 6] = 0;
+            matrixmut[23, 7] = 0;
+            matrixmut[23, 8] = 0;
+            matrixmut[23, 9] = 0;
+
+            matrixmut[24, 0] = 24;
+            matrixmut[24, 1] = 0;
+            matrixmut[24, 2] = 0;
+            matrixmut[24, 3] = 0;
+            matrixmut[24, 4] = 0;
+            matrixmut[24, 5] = 0;
+            matrixmut[24, 6] = 0;
+            matrixmut[24, 7] = 0;
+            matrixmut[24, 8] = 0;
+            matrixmut[24, 9] = 0;
+
+            matrixmut[25, 0] = 25;
+            matrixmut[25, 1] = 0;
+            matrixmut[25, 2] = 0;
+            matrixmut[25, 3] = 0;
+            matrixmut[25, 4] = 0;
+            matrixmut[25, 5] = 0;
+            matrixmut[25, 6] = 0;
+            matrixmut[25, 7] = 0;
+            matrixmut[25, 8] = 0;
+            matrixmut[25, 9] = 0;
+
+            matrixmut[26, 0] = 26;
+            matrixmut[26, 1] = 0;
+            matrixmut[26, 2] = 0;
+            matrixmut[26, 3] = 0;
+            matrixmut[26, 4] = 0;
+            matrixmut[26, 5] = 0;
+            matrixmut[26, 6] = 0;
+            matrixmut[26, 7] = 0;
+            matrixmut[26, 8] = 0;
+            matrixmut[26, 9] = 0;
+
+            matrixmut[27, 0] = 27;
+            matrixmut[27, 1] = 0;
+            matrixmut[27, 2] = 0;
+            matrixmut[27, 3] = 0;
+            matrixmut[27, 4] = 0;
+            matrixmut[27, 5] = 0;
+            matrixmut[27, 6] = 0;
+            matrixmut[27, 7] = 0;
+            matrixmut[27, 8] = 0;
+            matrixmut[27, 9] = 0;
+
+
+            matrixmut[28, 0] = 28;
+            matrixmut[28, 1] = 0;
+            matrixmut[28, 2] = 0;
+            matrixmut[28, 3] = 0;
+            matrixmut[28, 4] = 0;
+            matrixmut[28, 5] = 0;
+            matrixmut[28, 6] = 0;
+            matrixmut[28, 7] = 0;
+            matrixmut[28, 8] = 0;
+            matrixmut[28, 9] = 0;
+
+
+
+
+        }
+
+        private void creatinganinitialpopulation(int populationsize, int chromosomesize,int numberofduty)
+        {   
+            chr_some = new Chromosome[populationsize];
+            for (int i = 0; i < populationsize; i++)
+            {
+                chr_some[i] = new Chromosome( chromosomesize,numberofduty);
+
+            }
+           
+        }
+    }
+}
